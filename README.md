@@ -14,6 +14,6 @@ P34312
 	User "*" <--> "*" Role
 
 	User "1" <--> "*" Recipe
-	Recipe "1" <--> "1" Dish
+	Recipe "*" <--> "1" Dish
 	Dish "*" <--> "*" Foodstuff
 ```
