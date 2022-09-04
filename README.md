@@ -13,7 +13,7 @@ P34312
 	classDiagram
 	User "1" <--> "*" Order
 	Order "*" <--> "*" Dish
-	Order "*" <--> "1" Courier
+	Order "*" <--> "1" Delivery
 	Dish "*" <--> "*" Category
 	Dish "1" <--> "1" Recipe
 	Recipe "*" <--> "*" Foodstuff 
