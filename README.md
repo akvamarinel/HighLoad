@@ -8,11 +8,12 @@
 P34312
 
 ## Архитектура БД:
-### Форум рецептов
+### Доставка еды
 ```mermaid
 	classDiagram
-	User "*" <--> "*" Role
-	User "1" <--> "*" Recipe
+	User "1" <--> "*" Order
+	Order "*" <--> "*" Dish
+	Dish "*" <--> "*" Recipe 
 	Recipe "*" <--> "*" Category
 	Recipe "*" <--> "*" Foodstuff
 ```
