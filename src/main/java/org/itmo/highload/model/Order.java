@@ -14,4 +14,13 @@ public class Order {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_id", nullable = false)
+    private Delivery delivery;
+
 }
