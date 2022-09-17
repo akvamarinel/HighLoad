@@ -23,7 +23,12 @@ public class Order {
     @JoinColumn(name = "delivery_id", nullable = false)
     private Delivery delivery;
 
-    public Order(){}
+    public Order(UUID id, Date orderTime, User user, Delivery delivery) {
+        this.id = id;
+        this.orderTime = orderTime;
+        this.user = user;
+        this.delivery = delivery;
+    }
 
     public UUID getId() {
         return id;
@@ -57,10 +62,7 @@ public class Order {
         this.delivery = delivery;
     }
 
-    public Order(UUID id, Date orderTime, User user, Delivery delivery) {
-        this.id = id;
-        this.orderTime = orderTime;
-        this.user = user;
-        this.delivery = delivery;
+    public Order() {
+
     }
 }

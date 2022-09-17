@@ -2,6 +2,7 @@ package org.itmo.highload.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Table(name="user")
@@ -25,11 +26,19 @@ public class User {
 
     public User(){}
 
-
-    public User(UUID id, String address, List<Order> orders) {
+    public User(UUID id, String address, List<Order> orders, UserData userData) {
         this.id = id;
         this.address = address;
         this.orders = orders;
+        this.userData = userData;
+    }
+
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
     }
 
     public UUID getId() {
@@ -55,4 +64,5 @@ public class User {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
 }

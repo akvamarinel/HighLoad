@@ -18,19 +18,26 @@ public class UserData {
     @Column(name="surname", nullable = false)
     private String surname;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    public UserData() {
-    }
+    @OneToOne(mappedBy = "userData")
+    private User user;
 
-    public UserData(UUID id, String name, String surname, UserRole role) {
+    @OneToOne(mappedBy = "userData")
+    private Delivery delivery;
+
+    public UserData(UUID id, String name, String surname, UserRole role, User user, Delivery delivery) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.role = role;
+        this.user = user;
+        this.delivery = delivery;
+    }
+
+    public UserData() {
     }
 
     public UUID getId() {
@@ -64,4 +71,21 @@ public class UserData {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
 }
