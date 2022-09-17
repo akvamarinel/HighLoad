@@ -12,22 +12,19 @@ public class Delivery {
     @Column(name="id")
     private UUID id;
 
-    @Column(name="name")
-    private String name;
+    @OneToOne
+    @JoinColumn(name="user_data_id", referencedColumnName = "id")
+    private UserData userData;
 
-    @Column(name="surname")
-    private String surname;
 
     @OneToMany(mappedBy = "delivery")
     private List<Order> orders;
 
-    public Delivery() {
-    }
+    public Delivery() {}
 
-    public Delivery(UUID id, String name, String surname, List<Order> orders) {
+    public Delivery(UUID id, UserData userData, List<Order> orders) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.userData = userData;
         this.orders = orders;
     }
 
@@ -39,21 +36,6 @@ public class Delivery {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public List<Order> getOrders() {
         return orders;
@@ -61,5 +43,12 @@ public class Delivery {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
+    }
+    public UserData getUserData() {
+        return userData;
     }
 }

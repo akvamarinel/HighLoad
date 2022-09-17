@@ -4,40 +4,32 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
 @Table(name="user")
+@Entity
 public class User {
+
     @Id
-    @Column(name="user")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
-    @Column(name="name", nullable = false)
-    private String name;
-
-    @Column(name="surname", nullable = false)
-    private String surname;
 
     @Column(name="address", nullable = false)
     private String address;
 
     @OneToMany(mappedBy = "user")
-    private List <Order> orders;
+    private List<Order> orders;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private UserRole role;
+    @OneToOne
+    @JoinColumn(name = "user_data_id", referencedColumnName = "id")
+    private UserData userData;
 
-    public User() {
-    }
+    public User(){}
 
-    public User(UUID id, String name, String surname, String address, List<Order> orders, UserRole role) {
+
+    public User(UUID id, String address, List<Order> orders) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
         this.address = address;
         this.orders = orders;
-        this.role = role;
     }
 
     public UUID getId() {
@@ -46,22 +38,6 @@ public class User {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getAddress() {
@@ -78,13 +54,5 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 }

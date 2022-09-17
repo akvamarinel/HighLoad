@@ -24,5 +24,5 @@ public class Foodstuff {
     }
 
     @OneToMany(mappedBy = "foodstuff")
-    private List<Recipe> recipes;
+    private List<FoodInRecipe> foodInRecipes;
 }
