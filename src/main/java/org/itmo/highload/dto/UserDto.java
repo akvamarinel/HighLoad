@@ -8,14 +8,12 @@ import java.util.UUID;
 
 public class UserDto {
     private UUID id;
-    private String name;
-    private String surname;
+    private UserDataDto userDataDto;
     private List<Order> orders;
 
-    public UserDto(UUID id, String name, String surname, List<Order> orders) {
+    public UserDto(UUID id, UserDataDto userDataDto, List<Order> orders) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.userDataDto = userDataDto;
         this.orders = orders;
     }
 
@@ -30,20 +28,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public UserDataDto getUserDataDto() {
+        return userDataDto;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUserDataDto(UserDataDto userDataDto) {
+        this.userDataDto = userDataDto;
     }
 
     public List<Order> getOrders() {
