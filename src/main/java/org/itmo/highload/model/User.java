@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Table(name="user")
 @Entity
+@Table(name="user")
 public class User {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+
+    @Column(name="password")
+    String password;
 
     @Column(name="address", nullable = false)
     private String address;
@@ -26,8 +30,9 @@ public class User {
 
     public User(){}
 
-    public User(UUID id, String address, List<Order> orders, UserData userData) {
+    public User(UUID id, String password, String address, List<Order> orders, UserData userData) {
         this.id = id;
+        this.password = password;
         this.address = address;
         this.orders = orders;
         this.userData = userData;
@@ -65,4 +70,7 @@ public class User {
         this.orders = orders;
     }
 
+    public void setPassword(String password){
+        this.password = password;
+    }
 }
