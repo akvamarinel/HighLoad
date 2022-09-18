@@ -18,6 +18,12 @@ public class UserData {
     @Column(name="surname", nullable = false)
     private String surname;
 
+    @Column(name="password")
+    private String password;
+
+    @Column(name="login")
+    private String login;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role;
@@ -28,10 +34,28 @@ public class UserData {
     @OneToOne(mappedBy = "userData")
     private Delivery delivery;
 
-    public UserData(UUID id, String name, String surname, UserRole role, User user, Delivery delivery) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public UserData(UUID id, String name, String surname, String password, String login, UserRole role, User user, Delivery delivery) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.password = password;
+        this.login = login;
         this.role = role;
         this.user = user;
         this.delivery = delivery;
