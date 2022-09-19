@@ -7,40 +7,20 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserDto {
-    private UUID id;
-    private UserDataDto userDataDto;
-    private List<Order> orders;
+    UUID id;
+    UserDataDto userDataDto;
+    String address;
+    List<Order> orders;
 
-    public UserDto(UUID id, UserDataDto userDataDto, List<Order> orders) {
+
+    public UserDto(UUID id, UserDataDto userDataDto, String address, List<Order> orders) {
         this.id = id;
         this.userDataDto = userDataDto;
+        this.address = address;
         this.orders = orders;
     }
 
     public UserDto() {
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UserDataDto getUserDataDto() {
-        return userDataDto;
-    }
-
-    public void setUserDataDto(UserDataDto userDataDto) {
-        this.userDataDto = userDataDto;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 }
