@@ -17,14 +17,14 @@ public class Delivery {
     private UserData userData;
 
     @OneToMany(mappedBy = "delivery")
-    private List<Order> orders;
+    private List<UserOrder> userOrders;
 
     public Delivery() {}
 
-    public Delivery(UUID id, UserData userData, List<Order> orders) {
+    public Delivery(UUID id, UserData userData, List<UserOrder> userOrders) {
         this.id = id;
         this.userData = userData;
-        this.orders = orders;
+        this.userOrders = userOrders;
     }
 
     public UUID getId() {
@@ -36,12 +36,12 @@ public class Delivery {
     }
 
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<UserOrder> getUserOrders() {
+        return userOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setUserOrders(List<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 
     public void setUserData(UserData userData) {

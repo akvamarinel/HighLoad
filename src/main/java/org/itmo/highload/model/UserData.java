@@ -1,7 +1,6 @@
 package org.itmo.highload.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +28,7 @@ public class UserData {
     private UserRole role;
 
     @OneToOne(mappedBy = "userData")
-    private User user;
+    private Customer user;
 
     @OneToOne(mappedBy = "userData")
     private Delivery delivery;
@@ -50,7 +49,7 @@ public class UserData {
         this.login = login;
     }
 
-    public UserData(UUID id, String name, String surname, String password, String login, UserRole role, User user, Delivery delivery) {
+    public UserData(UUID id, String name, String surname, String password, String login, UserRole role, Customer user, Delivery delivery) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -96,11 +95,11 @@ public class UserData {
         this.role = role;
     }
 
-    public User getUser() {
+    public Customer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Customer user) {
         this.user = user;
     }
 

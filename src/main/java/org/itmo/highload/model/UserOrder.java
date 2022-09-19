@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name="order")
-public class Order {
+@Table(name="user_order")
+public class UserOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -16,17 +16,17 @@ public class Order {
     private Date orderTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id", nullable = false)
     private Delivery delivery;
 
-    public Order(UUID id, Date orderTime, User user, Delivery delivery) {
+    public UserOrder(UUID id, Date orderTime, Customer customer, Delivery delivery) {
         this.id = id;
         this.orderTime = orderTime;
-        this.user = user;
+        this.customer = customer;
         this.delivery = delivery;
     }
 
@@ -46,12 +46,12 @@ public class Order {
         this.orderTime = orderTime;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Delivery getDelivery() {
@@ -62,7 +62,7 @@ public class Order {
         this.delivery = delivery;
     }
 
-    public Order() {
+    public UserOrder() {
 
     }
 }

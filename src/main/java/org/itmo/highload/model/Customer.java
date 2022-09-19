@@ -2,12 +2,11 @@ package org.itmo.highload.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name="user")
-public class User {
+@Table(name="customer")
+public class Customer {
 
     @Id
     @Column(name="id")
@@ -16,23 +15,22 @@ public class User {
 
 
 
-
     @Column(name="address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "customer")
+    private List<UserOrder> userOrders;
 
     @OneToOne
     @JoinColumn(name = "user_data_id", referencedColumnName = "id")
     private UserData userData;
 
-    public User(){}
+    public Customer(){}
 
-    public User(UUID id, String address, List<Order> orders, UserData userData) {
+    public Customer(UUID id, String address, List<UserOrder> userOrders, UserData userData) {
         this.id = id;
         this.address = address;
-        this.orders = orders;
+        this.userOrders = userOrders;
         this.userData = userData;
     }
 
@@ -60,12 +58,12 @@ public class User {
         this.address = address;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<UserOrder> getUserOrders() {
+        return userOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setUserOrders(List<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 
 }

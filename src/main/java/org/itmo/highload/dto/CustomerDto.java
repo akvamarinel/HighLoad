@@ -1,23 +1,23 @@
 package org.itmo.highload.dto;
 
 
-import org.itmo.highload.model.Order;
+import org.itmo.highload.model.UserOrder;
 
 import java.util.List;
 import java.util.UUID;
 
-public class UserDto {
+public class CustomerDto {
     private UUID id;
     private UserDataDto userDataDto;
-    private List<Order> orders;
+    private List<UserOrder> userOrders;
 
-    public UserDto(UUID id, UserDataDto userDataDto, List<Order> orders) {
+    public CustomerDto(UUID id, UserDataDto userDataDto, List<UserOrder> userOrders) {
         this.id = id;
         this.userDataDto = userDataDto;
-        this.orders = orders;
+        this.userOrders = userOrders;
     }
 
-    public UserDto() {
+    public CustomerDto() {
     }
 
     public UUID getId() {
@@ -36,11 +36,11 @@ public class UserDto {
         this.userDataDto = userDataDto;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<UserOrder> getOrders() {
+        return userOrders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(List<UserOrder> userOrders) {
+        this.userOrders = userOrders;
     }
 }
