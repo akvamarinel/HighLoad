@@ -15,6 +15,7 @@ public class UserDataDto {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.role = role;
     }
 
     public UserDataDto() {
