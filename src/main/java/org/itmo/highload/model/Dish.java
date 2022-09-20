@@ -44,9 +44,10 @@ public class Dish implements Serializable {
     public Dish() {
     }
 
-    public Dish(UUID id, String name, Restaurant restaurant, List<Category> categories) {
+    public Dish(UUID id, String name, Recipe recipe, Restaurant restaurant, List<Category> categories) {
         this.id = id;
         this.name = name;
+        this.recipe = recipe;
         this.restaurant = restaurant;
         this.categories = categories;
     }
