@@ -1,6 +1,17 @@
 package org.itmo.highload.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
 
 @Entity
 @Table(name = "food_in_recipe")
@@ -21,56 +32,4 @@ public class FoodInRecipe {
 
     @Column(name = "weight", nullable = false)
     private Integer weight;
-
-    public FoodInRecipe() {
-    }
-
-    public FoodInRecipe(FoodInRecipeKey id, Recipe recipe, Foodstuff foodstuff, Integer weight) {
-        this.id = id;
-        this.recipe = recipe;
-        this.foodstuff = foodstuff;
-        this.weight = weight;
-    }
-
-    public FoodInRecipeKey getId() {
-        return id;
-    }
-
-    public void setId(FoodInRecipeKey id) {
-        this.id = id;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    public Foodstuff getFoodstuff() {
-        return foodstuff;
-    }
-
-    public void setFoodstuff(Foodstuff foodstuff) {
-        this.foodstuff = foodstuff;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    @Override
-    public String toString() {
-        return "FoodInRecipe{" +
-                "id=" + id +
-                ", recipe=" + recipe +
-                ", foodstuff=" + foodstuff +
-                ", weight=" + weight +
-                '}';
-    }
 }

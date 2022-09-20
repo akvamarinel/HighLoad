@@ -1,16 +1,25 @@
 package org.itmo.highload.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
+
 @Entity
-@Table(name="category")
+@Table(name = "category")
 public class Category {
-    public Category() {}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
@@ -19,34 +28,4 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     private List<Dish> dishes;
-
-    public Category(UUID id, String name, List<Dish> dishes) {
-        this.id = id;
-        this.name = name;
-        this.dishes = dishes;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
 }

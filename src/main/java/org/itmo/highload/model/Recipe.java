@@ -1,61 +1,30 @@
 package org.itmo.highload.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
+
 @Entity
-@Table(name="recipe")
+@Table(name = "recipe")
 public class Recipe {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name="recipe", nullable = false)
-    private String recipe;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
-    }
-
-    public Dish getDish() {
-        return dish;
-    }
-
-    public void setDish(Dish dish) {
-        this.dish = dish;
-    }
-
-    public List<FoodInRecipe> getFoodInRecipes() {
-        return foodInRecipes;
-    }
-
-    public void setFoodInRecipes(List<FoodInRecipe> foodInRecipes) {
-        this.foodInRecipes = foodInRecipes;
-    }
-
-    public Recipe(UUID id, String recipe, Dish dish, List<FoodInRecipe> foodInRecipes) {
-        this.id = id;
-        this.recipe = recipe;
-        this.dish = dish;
-        this.foodInRecipes = foodInRecipes;
-    }
-
-    public Recipe() {
-    }
+    @Column(name = "descr", nullable = false)
+    private String descr;
 
     @OneToOne(mappedBy = "recipe")
     private Dish dish;

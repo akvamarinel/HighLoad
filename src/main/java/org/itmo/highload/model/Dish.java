@@ -1,15 +1,25 @@
 package org.itmo.highload.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+
+
 @Entity
 @Table(name = "dish")
 public class Dish implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
@@ -17,7 +27,7 @@ public class Dish implements Serializable {
     private String name;
 
     @OneToOne
-    @JoinColumn(name="recipe_id", referencedColumnName = "id")
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private Recipe recipe;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -26,54 +36,9 @@ public class Dish implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="category_of_dish",
+            name = "category_of_dish",
             joinColumns = @JoinColumn(name = "dish_id"),
-            inverseJoinColumns = @JoinColumn(name="category_id")
+            inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories;
-
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", restaurant=" + restaurant +
-                '}';
-    }
-
-    public Dish() {
-    }
-
-    public Dish(UUID id, String name, Recipe recipe, Restaurant restaurant, List<Category> categories) {
-        this.id = id;
-        this.name = name;
-        this.recipe = recipe;
-        this.restaurant = restaurant;
-        this.categories = categories;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
 }
