@@ -16,6 +16,10 @@ public class Dish implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @OneToOne
+    @JoinColumn(name="recipe_id", referencedColumnName = "id")
+    private Recipe recipe;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;

@@ -15,6 +15,9 @@ public class Recipe {
     @Column(name="recipe", nullable = false)
     private String recipe;
 
+    @OneToOne(mappedBy = "recipe")
+    private Dish dish;
+
     @OneToMany(mappedBy = "recipe")
     private List<FoodInRecipe> foodInRecipes;
 }
