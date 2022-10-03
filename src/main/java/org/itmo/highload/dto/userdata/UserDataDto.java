@@ -1,4 +1,4 @@
-package org.itmo.highload.dto;
+package org.itmo.highload.dto.userdata;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -30,5 +30,5 @@ public class Foodstuff {
     private Integer calories;
 
     @OneToMany(mappedBy = "foodstuff")
-    private List<FoodInRecipe> foodInRecipes;
+    private List<FoodInRecipe> foodInRecipe;
 }

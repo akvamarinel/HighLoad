@@ -1,6 +1,6 @@
 package org.itmo.highload.service;
 
-import org.itmo.highload.dto.CustomerDto;
+import org.itmo.highload.dto.customer.CustomerDto;
 import org.itmo.highload.model.Customer;
 import org.itmo.highload.repo.CustomerRepo;
 import org.modelmapper.ModelMapper;
