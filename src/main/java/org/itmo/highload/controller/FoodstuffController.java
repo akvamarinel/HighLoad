@@ -25,7 +25,7 @@ public class FoodstuffController {
 
     @GetMapping(value = "/foodstuff/{id}", produces = "application/json")
     public ResponseEntity<Foodstuff> getOne(@PathVariable UUID id) {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(foodstuffService.getOne(id));
     }
 
     @GetMapping("/foodstuff")
