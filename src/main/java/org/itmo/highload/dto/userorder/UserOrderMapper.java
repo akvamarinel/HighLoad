@@ -1,4 +1,4 @@
-package org.itmo.highload.dto;
+package org.itmo.highload.dto.userorder;
 
 import org.mapstruct.Mapper;
 

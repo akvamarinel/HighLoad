@@ -1,22 +1,22 @@
-package org.itmo.highload.dto;
+package org.itmo.highload.dto.userorder;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.itmo.highload.dto.userdata.UserDataDto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeliveryDto {
+public class UserOrderDto {
     UUID id;
     @NotNull
-    UserDataDto userDataDto;
+    Date orderTime;
+    UUID customerId;
+    UUID deliveryId;
 
 }
