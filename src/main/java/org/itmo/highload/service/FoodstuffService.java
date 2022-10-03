@@ -1,7 +1,7 @@
 package org.itmo.highload.service;
 
 import lombok.AllArgsConstructor;
-import org.itmo.highload.exception.EntityNotFoudException;
+import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.Foodstuff;
 import org.itmo.highload.repo.FoodstuffRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class FoodstuffService {
 
     public Foodstuff getOne(UUID id) {
         return foodstuffRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoudException(Foodstuff.class, id));
+                .orElseThrow(() -> new EntityNotFoundException(Foodstuff.class, id));
     }
 
     public Iterable<Foodstuff> getAll(){

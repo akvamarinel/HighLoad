@@ -9,13 +9,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeliveryDto {
+public class RecipeDto {
     UUID id;
     @NotNull
-    UserDataDto userDataDto;
+    @NotBlank
+    @NotEmpty
+    String descr;
+    UUID dishId;
 
 }

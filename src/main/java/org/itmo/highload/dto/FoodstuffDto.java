@@ -13,9 +13,14 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeliveryDto {
+public class FoodstuffDto {
+
     UUID id;
     @NotNull
-    UserDataDto userDataDto;
+    @NotBlank
+    @NotEmpty
+    String name;
+    @NotNull
+    Integer calories;
 
 }

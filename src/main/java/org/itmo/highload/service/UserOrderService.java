@@ -1,7 +1,7 @@
 package org.itmo.highload.service;
 
 import lombok.AllArgsConstructor;
-import org.itmo.highload.exception.EntityNotFoudException;
+import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.UserOrder;
 import org.itmo.highload.repo.UserOrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserOrderService {
 
     public UserOrder getOne(UUID id) {
         return userOrderRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoudException(UserOrder.class, id));
+                .orElseThrow(() -> new EntityNotFoundException(UserOrder.class, id));
     }
 
     public Page<UserOrder> getAll(Pageable pageable) {
