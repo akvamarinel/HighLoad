@@ -6,3 +6,4 @@ import java.util.UUID;
 
 public interface RecipeRepo extends CrudRepository<Recipe, UUID> {
 }
+

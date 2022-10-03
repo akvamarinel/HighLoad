@@ -2,7 +2,6 @@ package org.itmo.highload.service;
 
 import lombok.AllArgsConstructor;
 import org.itmo.highload.model.Recipe;
-import org.itmo.highload.repo.RecipeRepo;
 
 import java.util.Optional;
 import java.util.UUID;

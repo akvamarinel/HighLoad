@@ -1,13 +1,12 @@
 package org.itmo.highload.service;
 
 import lombok.AllArgsConstructor;
+import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.Foodstuff;
 import org.itmo.highload.repo.FoodstuffRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -17,16 +16,20 @@ public class FoodstuffService {
     @Autowired
     private final FoodstuffRepo foodstuffRepo;
 
-    public Foodstuff create(Foodstuff foodstuff) {
-        return foodstuffRepo.save(foodstuff);
+    @Transactional
+    public UUID create(Foodstuff foodstuff) {
+        foodstuff.setId(UUID.randomUUID());
+        return foodstuffRepo.save(foodstuff).getId();
     }
 
+    @Transactional
     public void delete(Foodstuff foodstuff) {
-        foodstuffRepo.delete(foodstuff);
+        foodstuffRepo.deleteById(foodstuff.getId());
     }
 
-    public Optional<Foodstuff> getOne(UUID id) {
-        return foodstuffRepo.findById(id);
+    public Foodstuff getOne(UUID id) {
+        return foodstuffRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Foodstuff.class, id));
     }
 
     public Iterable<Foodstuff> getAll(){
@@ -34,6 +37,8 @@ public class FoodstuffService {
     }
 
     public Foodstuff update(UUID id, Foodstuff foodstuff) {
+        Foodstuff tmpFoodstuff = getOne(id);
+       // BeanUtils.copyProperties();
         return null;
     }
 }

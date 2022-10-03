@@ -2,7 +2,6 @@ package org.itmo.highload.controller;
 
 import lombok.AllArgsConstructor;
 import org.itmo.highload.model.Recipe;
-import org.itmo.highload.repo.RecipeRepo;
 import org.itmo.highload.service.RecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

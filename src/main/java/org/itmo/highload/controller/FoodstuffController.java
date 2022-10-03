@@ -3,7 +3,6 @@ package org.itmo.highload.controller;
 import lombok.AllArgsConstructor;
 import org.itmo.highload.model.Foodstuff;
 import org.itmo.highload.service.FoodstuffService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +20,10 @@ public class FoodstuffController {
     @Autowired
     FoodstuffService foodstuffService;
 
-    ModelMapper modelMapper = new ModelMapper();
 
     @GetMapping(value = "/foodstuff/{id}", produces = "application/json")
     public ResponseEntity<Foodstuff> getOne(@PathVariable UUID id) {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(foodstuffService.getOne(id));
     }
 
     @GetMapping("/foodstuff")
