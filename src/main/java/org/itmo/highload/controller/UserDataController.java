@@ -12,9 +12,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserDataController {
     @Autowired
     private UserDataService userDataService;
-
-
-
-
-
 }
