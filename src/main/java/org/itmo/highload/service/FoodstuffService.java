@@ -4,13 +4,9 @@ import lombok.AllArgsConstructor;
 import org.itmo.highload.exception.EntityNotFoudException;
 import org.itmo.highload.model.Foodstuff;
 import org.itmo.highload.repo.FoodstuffRepo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
