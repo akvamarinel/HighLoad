@@ -1,7 +1,7 @@
 package org.itmo.highload.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.dto.foodstuff.FoodstuffDto;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.Foodstuff;
 import org.itmo.highload.repo.FoodstuffRepo;
@@ -18,9 +18,9 @@ public class FoodstuffService {
     private final FoodstuffRepo foodstuffRepo;
 
     @Transactional
-    public UUID create(Foodstuff foodstuff) {
+    public Foodstuff create(Foodstuff foodstuff) {
         foodstuff.setId(UUID.randomUUID());
-        return foodstuffRepo.save(foodstuff).getId();
+        return foodstuffRepo.save(foodstuff);
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class FoodstuffService {
 
     public Foodstuff update(UUID id, Foodstuff foodstuff) {
         Foodstuff tmpFoodstuff = getOne(id);
-       // BeanUtils.copyProperties();
+        // todo: do!
         return null;
     }
 }

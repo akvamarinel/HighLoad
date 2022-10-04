@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.itmo.highload.model.Foodstuff;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Component
 public class FoodstuffMapper {
@@ -18,7 +20,8 @@ public class FoodstuffMapper {
 
     public Foodstuff toModel(FoodstuffDto foodstuffDto) {
         Foodstuff foodstuff = new Foodstuff();
-        foodstuff.setId(foodstuff.getId());
+        foodstuff.setId(UUID.randomUUID());
+        foodstuff.setName(foodstuffDto.getName());
         foodstuff.setCalories(foodstuffDto.getCalories());
         return foodstuff;
     }

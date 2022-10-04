@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RestController("foodstuff")
+@RestController
 public class FoodstuffController {
     private final FoodstuffService foodstuffService;
     private final FoodstuffMapper foodstuffMapper;
@@ -29,7 +29,7 @@ public class FoodstuffController {
     }
 
     @GetMapping("/foodstuff/sort-calories")
-    public ResponseEntity<Page<FoodstuffDto>> getAllSorted(Pageable pageable){
+    public ResponseEntity<Page<FoodstuffDto>> getAllSorted(){
         return ResponseEntity.status(HttpStatus.OK).body(
                 foodstuffService.getAll(PageRequest.of(0, 5, Sort.Direction.ASC,"calories"))
                         .map(foodstuffMapper::toDto));
@@ -41,19 +41,19 @@ public class FoodstuffController {
                 foodstuffService.getAll(pageable).map(foodstuffMapper::toDto));
     }
 
-    @PostMapping
-    public ResponseEntity<UUID> create(@RequestBody FoodstuffDto foodstuffDto) {
+    @PostMapping("/foodstuff")
+    public ResponseEntity<FoodstuffDto> create(@RequestBody FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(foodstuffService.create(foodstuffMapper.toModel(foodstuffDto)));
+                .body(foodstuffMapper.toDto(foodstuffService.create(foodstuffMapper.toModel(foodstuffDto))));
     }
 
-    @DeleteMapping("foodstuff/{id}")
+    @DeleteMapping("/foodstuff/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         foodstuffService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("foodstuff/{id}")
+    @PutMapping("/foodstuff/{id}")
     public ResponseEntity<Foodstuff> update(@PathVariable UUID id, @RequestBody FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 foodstuffService.update(id, foodstuffMapper.toModel(foodstuffDto)));

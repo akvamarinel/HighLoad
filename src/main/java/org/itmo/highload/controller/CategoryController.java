@@ -3,7 +3,6 @@ package org.itmo.highload.controller;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.dto.category.CategoryDto;
 import org.itmo.highload.dto.category.CategoryMapper;
-import org.itmo.highload.model.Category;
 import org.itmo.highload.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +19,10 @@ public class CategoryController {
     private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
-    @PostMapping("/category")
-    public ResponseEntity<UUID> create(@RequestBody CategoryDto categoryDto){
+    @PostMapping
+    public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto categoryDto){
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(categoryService.create(categoryMapper.toModel(categoryDto)));
+                .body(categoryMapper.toDto(categoryService.create(categoryMapper.toModel(categoryDto))));
     }
 
     @GetMapping("/category/{id}")
@@ -41,6 +40,5 @@ public class CategoryController {
     public ResponseEntity<Page<CategoryDto>> getAll(@PageableDefault Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(categoryService.getAll(pageable).map(categoryMapper::toDto));
-
     }
 }

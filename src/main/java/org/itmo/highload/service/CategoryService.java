@@ -18,9 +18,9 @@ public class CategoryService {
     private final CategoryRepo categoryRepo;
 
     @Transactional
-    public UUID create (Category category) {
+    public Category create (Category category) {
         category.setId(UUID.randomUUID());
-        return categoryRepo.save(category).getId();
+        return categoryRepo.save(category);
     }
 
     @Transactional
