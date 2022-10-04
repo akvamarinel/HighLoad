@@ -16,6 +16,7 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
+
     @GetMapping("/recipes/{id}")
     ResponseEntity<Recipe> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(null);

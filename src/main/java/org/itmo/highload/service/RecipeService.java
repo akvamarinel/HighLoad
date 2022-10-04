@@ -1,12 +1,13 @@
 package org.itmo.highload.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.itmo.highload.model.Recipe;
+import org.itmo.highload.repo.RecipeRepo;
 
 import java.util.Optional;
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RecipeService {
 
     private final RecipeRepo recipeRepo;
