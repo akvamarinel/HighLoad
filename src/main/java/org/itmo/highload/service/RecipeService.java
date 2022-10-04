@@ -3,11 +3,13 @@ package org.itmo.highload.service;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.model.Recipe;
 import org.itmo.highload.repo.RecipeRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
+@Service
 public class RecipeService {
 
     private final RecipeRepo recipeRepo;

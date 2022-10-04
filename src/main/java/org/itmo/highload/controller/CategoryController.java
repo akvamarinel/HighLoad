@@ -20,7 +20,7 @@ public class CategoryController {
     private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
-    @PostMapping
+    @PostMapping("/category")
     public ResponseEntity<UUID> create(@RequestBody CategoryDto categoryDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoryService.create(categoryMapper.toModel(categoryDto)));
