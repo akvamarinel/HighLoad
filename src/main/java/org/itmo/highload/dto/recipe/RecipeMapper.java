@@ -1,12 +1,14 @@
 package org.itmo.highload.dto.recipe;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.dto.foodinrecipe.FoodInRecipeDto;
 import org.itmo.highload.model.Recipe;
 import org.itmo.highload.service.DishService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -19,13 +21,13 @@ public class RecipeMapper {
         dto.setId(recipe.getId());
         dto.setDescr(recipe.getDescr());
         dto.setDishId(recipe.getDish().getId());
-        dto.setFoodInRecipe(recipe.getFoodInRecipe().stream().map());
-        return new RecipeResponseDto(recipe.getId(), recipe.getDescr(), recipe.getDish().getId(), new ArrayList<>());
+        dto.setFoodInRecipe(recipe.getFoodInRecipe().stream().map(e -> new FoodInRecipeDto(e.getFoodstuff().getId(), e.getWeight())).collect(Collectors.toList()));
+        return dto;
     }
 
 
     Recipe toModel(RecipeRequestDto dto) {
-
+        return null;
     }
 
 }

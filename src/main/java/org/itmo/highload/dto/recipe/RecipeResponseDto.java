@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.itmo.highload.dto.foodinrecipe.FoodInRecipeDto;
 import org.itmo.highload.dto.foodstuff.FoodstuffDto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,5 +31,5 @@ public class RecipeResponseDto {
     private UUID dishId;
 
     @NotNull
-    private List<FoodstuffDto> foodInRecipe;
+    private List<FoodInRecipeDto> foodInRecipe = new ArrayList<>();
 }

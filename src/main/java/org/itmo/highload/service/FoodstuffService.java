@@ -1,30 +1,31 @@
 package org.itmo.highload.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.itmo.highload.dto.foodstuff.FoodstuffDto;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.Foodstuff;
 import org.itmo.highload.repo.FoodstuffRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class FoodstuffService {
 
-    @Autowired
     private final FoodstuffRepo foodstuffRepo;
 
     @Transactional
-    public UUID create(Foodstuff foodstuff) {
+    public Foodstuff create(Foodstuff foodstuff) {
         foodstuff.setId(UUID.randomUUID());
-        return foodstuffRepo.save(foodstuff).getId();
+        return foodstuffRepo.save(foodstuff);
     }
 
     @Transactional
-    public void delete(Foodstuff foodstuff) {
-        foodstuffRepo.deleteById(foodstuff.getId());
+    public void delete(UUID id) {
+        foodstuffRepo.deleteById(getOne(id).getId());
     }
 
     public Foodstuff getOne(UUID id) {
@@ -32,13 +33,13 @@ public class FoodstuffService {
                 .orElseThrow(() -> new EntityNotFoundException(Foodstuff.class, id));
     }
 
-    public Iterable<Foodstuff> getAll(){
-        return foodstuffRepo.findAll();
+    public Page<Foodstuff> getAll(Pageable pageable){
+        return foodstuffRepo.findAll(pageable);
     }
 
     public Foodstuff update(UUID id, Foodstuff foodstuff) {
         Foodstuff tmpFoodstuff = getOne(id);
-       // BeanUtils.copyProperties();
+        // todo: do!
         return null;
     }
 }

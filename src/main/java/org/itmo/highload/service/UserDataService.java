@@ -14,13 +14,9 @@ public class UserDataService {
     private UserDataRepo userDataRepo;
 
     public void create(UserDataDto userDataDto) {
-        UserData userData = modelMapper.map(userDataDto, UserData.class);
-        userDataRepo.save(userData);
     }
 
     public void delete(UserDataDto userDataDto) {
-        UserData userData = modelMapper.map(userDataDto, UserData.class);
-        userDataRepo.delete(userData);
     }
 
 }

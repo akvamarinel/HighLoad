@@ -3,7 +3,6 @@ package org.itmo.highload.service;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.Dish;
-import org.itmo.highload.model.Recipe;
 import org.itmo.highload.repo.DishRepo;
 import org.springframework.stereotype.Service;
 

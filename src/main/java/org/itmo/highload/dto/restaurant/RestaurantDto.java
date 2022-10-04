@@ -16,5 +16,4 @@ public class RestaurantDto {
     UUID id;
     String name;
     Integer rating;
-    List<DishDto> dishes;
 }

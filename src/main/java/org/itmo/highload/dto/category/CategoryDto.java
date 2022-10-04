@@ -22,5 +22,4 @@ public class CategoryDto {
     @NotBlank
     @NotEmpty
     String name;
-    List<DishDto> dishes;
 }
