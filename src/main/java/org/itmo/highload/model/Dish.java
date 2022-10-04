@@ -14,8 +14,6 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 @Entity
 @Table(name = "dish")
 public class Dish implements Serializable {

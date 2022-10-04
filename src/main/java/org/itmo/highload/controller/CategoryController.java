@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RestController("category")
+@RestController
 public class CategoryController {
     private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
-    @PostMapping
+    @PostMapping("/category")
     public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto categoryDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoryMapper.toDto(categoryService.create(categoryMapper.toModel(categoryDto))));
