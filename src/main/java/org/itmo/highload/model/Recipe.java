@@ -31,5 +31,5 @@ public class Recipe {
     private Dish dish;
 
     @OneToMany(mappedBy = "recipe")
-    private List<FoodInRecipe> foodInRecipe;
+    private List<FoodInRecipe> foodInRecipe = new ArrayList<>();
 }

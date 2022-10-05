@@ -16,14 +16,9 @@ import java.util.UUID;
 @Setter
 public class RecipeRequestDto {
 
-    private UUID id;
-
     @NotEmpty
     @NotBlank
     @NotEmpty
     private String descr;
-
-    @NotNull
-    private UUID dishId;
 
 }

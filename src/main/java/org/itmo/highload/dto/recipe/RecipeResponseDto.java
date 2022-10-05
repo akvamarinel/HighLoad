@@ -28,8 +28,5 @@ public class RecipeResponseDto {
     private String descr;
 
     @NotNull
-    private UUID dishId;
-
-    @NotNull
     private List<FoodInRecipeDto> foodInRecipe = new ArrayList<>();
 }
