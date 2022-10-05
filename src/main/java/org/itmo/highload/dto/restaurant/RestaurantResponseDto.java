@@ -1,27 +1,29 @@
-package org.itmo.highload.dto.dish;
+package org.itmo.highload.dto.restaurant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.itmo.highload.dto.category.CategoryDto;
+import org.hibernate.validator.constraints.NotBlank;
+import org.itmo.highload.dto.dish.DishResponseDto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DishDto {
+public class RestaurantResponseDto {
     UUID id;
     @NotNull
     @NotBlank
     @NotEmpty
     String name;
-    UUID recipeId;
-    UUID restaurantId;
-    List<CategoryDto> categories;
+    @NotNull
+    Integer rating;
+
+    List<UUID> dishes = new ArrayList<>();
 }

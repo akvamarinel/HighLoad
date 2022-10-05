@@ -4,6 +4,8 @@ package org.itmo.highload.dto.category;
 import org.itmo.highload.model.Category;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 
 @Component
 public class CategoryMapper {
@@ -17,8 +19,8 @@ public class CategoryMapper {
 
     public Category toModel(CategoryDto categoryDto){
         Category category = new Category();
-        category.setId(categoryDto.getId());
-        category.setName(category.getName());
+        category.setId(UUID.randomUUID());
+        category.setName(categoryDto.getName());
         return category;
     }
 }

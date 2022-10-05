@@ -11,8 +11,6 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 @Entity
 @Table(name = "food_in_recipe")
 public class FoodInRecipe {

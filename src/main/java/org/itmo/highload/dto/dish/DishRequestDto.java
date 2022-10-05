@@ -1,4 +1,4 @@
-package org.itmo.highload.dto.category;
+package org.itmo.highload.dto.dish;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,10 +14,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto {
-    UUID id;
-    @NotNull
-    @NotBlank
-    @NotEmpty
-    String name;
+public class DishRequestDto {
+
+        UUID id;
+        @NotNull
+        @NotBlank
+        @NotEmpty
+        String name;
+        UUID recipeId;
+        UUID restaurantId;
 }

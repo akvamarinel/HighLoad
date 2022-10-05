@@ -20,7 +20,6 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeMapper recipeMapper;
 
-
     @GetMapping("/recipes/{id}")
     ResponseEntity<RecipeResponseDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.getOne(id)));
