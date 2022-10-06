@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -30,6 +31,7 @@ public class FoodstuffController {
 
     @GetMapping("/foodstuff/sort-calories")
     public ResponseEntity<Page<FoodstuffDto>> getAllSorted(){
+        //fixme : page in url, sort in url
         return ResponseEntity.status(HttpStatus.OK).body(
                 foodstuffService.getAll(PageRequest.of(0, 5, Sort.Direction.ASC,"calories"))
                         .map(foodstuffMapper::toDto));
@@ -42,7 +44,7 @@ public class FoodstuffController {
     }
 
     @PostMapping("/foodstuff")
-    public ResponseEntity<FoodstuffDto> create(@RequestBody FoodstuffDto foodstuffDto) {
+    public ResponseEntity<FoodstuffDto> create(@RequestBody @Valid FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(foodstuffMapper.toDto(foodstuffService.create(foodstuffMapper.toModel(foodstuffDto))));
     }

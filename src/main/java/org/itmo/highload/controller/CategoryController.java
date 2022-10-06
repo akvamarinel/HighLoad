@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/category")
-    public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<CategoryDto> create(@RequestBody @Valid CategoryDto categoryDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoryMapper.toDto(categoryService.create(categoryMapper.toModel(categoryDto))));
     }

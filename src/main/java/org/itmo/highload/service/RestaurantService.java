@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.model.Restaurant;
 import org.itmo.highload.repo.RestaurantRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +25,11 @@ public class RestaurantService {
         return restaurantRepo.findById(id)
                 .orElseThrow(()->new EntityNotFoundException(Restaurant.class, id));
 
+    }
+
+
+    public Page<Restaurant> getAll(Pageable pageable){
+        return restaurantRepo.findAll(pageable);
     }
 
 }

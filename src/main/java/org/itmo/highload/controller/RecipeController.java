@@ -39,7 +39,7 @@ public class RecipeController {
     }
 
     @PutMapping("/recipes/{id}")
-    ResponseEntity<Recipe> update(@PathVariable UUID id, @RequestBody Recipe recipe) {
+    ResponseEntity<Recipe> update(@PathVariable UUID id, @RequestBody @Valid Recipe recipe) {
         return ResponseEntity.ok(null);
     }
 
