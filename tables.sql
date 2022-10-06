@@ -22,8 +22,8 @@ create table delivery (
 
 create table user_order(
     id uuid not null default gen_random_uuid(),
-    customer_id uuid not null references customer(id),
-    delivery_id uuid not null references delivery(id),
+    customer_id uuid not null references customer(id) on delete set null,
+    delivery_id uuid not null references delivery(id) on delete set null,
     order_time timestamp not null,
     primary key(id)
 );
@@ -48,8 +48,8 @@ create table foodstuff (
 );
 
 create table food_in_recipe (
-    recipe_id uuid not null references recipe(id),
-    foodstuff_id uuid not null references foodstuff(id),
+    recipe_id uuid not null references recipe(id) on delete cascade,
+    foodstuff_id uuid not null references foodstuff(id) on delete cascade,
     weight int not null,
     primary key(recipe_id, foodstuff_id)
 );
@@ -64,14 +64,14 @@ create table restaurant (
 create table dish (
     id uuid not null default gen_random_uuid(),
     name varchar(255) not null,
-    restaurant_id uuid not null references restaurant(id),
-    recipe_id uuid not null references recipe(id),
+    restaurant_id uuid references restaurant(id) on delete set null,
+    recipe_id uuid unique references recipe(id) on delete set null,
     primary key(id)
 );
 
 create table category_of_dish (
-    dish_id uuid not null references dish(id),
-    category_id uuid not null references category(id),
+    dish_id uuid not null references dish(id) on delete cascade ,
+    category_id uuid not null references category(id) on delete cascade ,
     primary key(dish_id, category_id)
 );
 
