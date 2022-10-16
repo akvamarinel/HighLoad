@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.itmo.highload.dto.foodinrecipe.FoodInRecipeDto;
-import org.itmo.highload.dto.foodstuff.FoodstuffDto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

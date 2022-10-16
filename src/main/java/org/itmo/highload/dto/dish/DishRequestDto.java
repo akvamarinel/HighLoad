@@ -16,7 +16,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DishRequestDto {
 
-        UUID id;
         @NotNull
         @NotBlank
         @NotEmpty
