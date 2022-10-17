@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.itmo.highload.category.controller.dto.CategoryDto;
 import org.itmo.highload.category.controller.mapper.CategoryMapper;
 import org.itmo.highload.category.service.CategoryService;
+import org.itmo.highload.common.ResponsePage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,8 +41,11 @@ public class CategoryController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<Page<CategoryDto>> getAll(@PageableDefault Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(categoryService.getAll(pageable).map(categoryMapper::toDto));
+    public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
+        List<CategoryDto> categoryDtoList = categoryService.getAll(pageable).stream()
+                .map(categoryMapper::toDto).collect(Collectors.toList());
+        boolean tmp = categoryService.getAll(pageable).hasNext();
+        ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
+        return bodyBuilder.body(new ResponsePage(categoryDtoList, tmp));
     }
 }

@@ -38,7 +38,8 @@ public class FoodstuffController {
     }
 
     @GetMapping("/foodstuff")
-    public ResponseEntity<Page<FoodstuffDto>> getAll(@PageableDefault Pageable pageable) {
+    public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
+
         return ResponseEntity.status(HttpStatus.OK).body(
                 foodstuffService.getAll(pageable).map(foodstuffMapper::toDto));
     }

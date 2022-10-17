@@ -17,13 +17,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantResponseDto {
-    UUID id;
+    private UUID id;
     @NotNull
     @NotBlank
     @NotEmpty
-    String name;
+    private String name;
     @NotNull
-    Integer rating;
+    private Integer rating;
 
-    List<UUID> dishes = new ArrayList<>();
+    private List<UUID> dishes = new ArrayList<>();
 }

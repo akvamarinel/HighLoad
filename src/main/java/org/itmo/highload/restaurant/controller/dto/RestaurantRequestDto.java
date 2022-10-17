@@ -15,11 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantRequestDto {
-    UUID id;
+    private UUID id;
     @NotNull
     @NotBlank
     @NotEmpty
-    String name;
+    private String name;
     @NotNull
-    Integer rating;
+    private Integer rating;
 }
