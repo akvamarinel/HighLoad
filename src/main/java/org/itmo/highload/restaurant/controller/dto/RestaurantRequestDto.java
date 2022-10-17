@@ -18,8 +18,8 @@ public class RestaurantRequestDto {
     @NotNull
     @NotEmpty
     @NotBlank
-    String name;
+    private String name;
 
     @NotNull
-    Integer rating;
+    private Integer rating;
 }
