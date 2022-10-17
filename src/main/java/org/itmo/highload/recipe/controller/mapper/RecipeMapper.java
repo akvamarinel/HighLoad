@@ -32,7 +32,6 @@ public class RecipeMapper {
         Recipe recipe = new Recipe();
         recipe.setId(UUID.randomUUID());
         recipe.setDescr(dto.getDescr());
-        //recipe.setDish(dto);
         return recipe;
     }
 }

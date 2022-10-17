@@ -15,7 +15,8 @@ import org.itmo.highload.recipe.controller.dto.RecipeRequestDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.repo.RecipeRepo;
-import org.springframework.http.ResponseEntity;
+import org.itmo.highload.restaurant.model.Restaurant;
+import org.itmo.highload.restaurant.repo.RestaurantRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,6 +35,8 @@ public class DishService {
     private final DishMapper dishMapper;
     private final RecipeRepo recipeRepo;
 
+    private final RestaurantRepo restaurantRepo;
+
     public Dish getOne(UUID id) {
         return dishRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Dish.class, id));
     }
@@ -47,7 +50,7 @@ public class DishService {
         Dish dish = dishMapper.toModel(dishRequestDto);
         RecipeRequestDto recipeDto = dishRequestDto.getRecipe();
         Recipe recipe = recipeMapper.toModel(recipeDto);
-        List<FoodInRecipe> foodInRecipeList = recipeDto.getFoodInRecipeDtoList().stream()
+        List<FoodInRecipe> foodInRecipeList = recipeDto.getFoodInRecipe().stream()
                 .map(e -> {
                     Foodstuff food = foodstuffRepo.findById(e.getFoodstuffId())
                             .orElseThrow(() -> new EntityNotFoundException(Foodstuff.class, e.getFoodstuffId()));

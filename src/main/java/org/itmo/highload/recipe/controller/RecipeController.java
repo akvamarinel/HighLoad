@@ -34,9 +34,7 @@ public class RecipeController {
 
     @GetMapping("/recipes")
     ResponseEntity<List<RecipeResponseDto>> getAll() {
-
-        List<Recipe> recipeList = recipeService.getAll();
-        return ResponseEntity.ok(recipeList.stream().map(recipeMapper::toDto).collect(Collectors.toList()));
+        return ResponseEntity.ok(recipeService.getAll().stream().map(recipeMapper::toDto).collect(Collectors.toList()));
     }
 
     @PutMapping("/recipes/{id}")
