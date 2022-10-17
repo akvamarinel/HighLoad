@@ -32,5 +32,5 @@ public class RecipeResponseDto {
 
     @NotNull
     @NotEmpty
-    private List<FoodInRecipeDto> foodInRecipe = new ArrayList<>();
+    private List<FoodInRecipeDto> foodInRecipeDtoList = new ArrayList<>();
 }

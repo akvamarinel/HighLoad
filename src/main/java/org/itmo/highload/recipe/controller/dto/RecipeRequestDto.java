@@ -11,8 +11,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +25,5 @@ public class RecipeRequestDto {
 
     @NotEmpty
     @NotNull
-    private List<FoodInRecipeDto> foodInRecipe = new ArrayList<>();
-
+    private List<FoodInRecipeDto> foodInRecipeDtoList = new ArrayList<>();
 }

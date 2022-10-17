@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.itmo.highload.dish.model.Dish;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,5 +30,5 @@ public class Restaurant {
     private Integer rating;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Dish> dishes;
+    private List<Dish> dishes = new ArrayList<>();
 }

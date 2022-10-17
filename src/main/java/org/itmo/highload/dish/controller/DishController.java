@@ -7,6 +7,10 @@ import org.itmo.highload.dish.controller.mapper.DishMapper;
 import org.itmo.highload.dish.model.Dish;
 import org.itmo.highload.dish.repo.DishRepo;
 import org.itmo.highload.dish.service.DishService;
+import org.itmo.highload.foodinrecipe.model.FoodInRecipe;
+import org.itmo.highload.foodinrecipe.model.FoodInRecipeKey;
+import org.itmo.highload.foodstuff.model.Foodstuff;
+import org.itmo.highload.foodstuff.service.FoodstuffService;
 import org.itmo.highload.recipe.controller.dto.RecipeRequestDto;
 import org.itmo.highload.recipe.controller.dto.RecipeResponseDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
@@ -31,31 +35,28 @@ public class DishController {
 
 
 
-    @GetMapping("/dish/{id}")
+    @GetMapping("/dishes/{id}")
     ResponseEntity<DishResponseDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(dishMapper.toDto(dishService.getOne(id)));
     }
 
-    @GetMapping("/recipes")
+    @GetMapping("/dishes")
     ResponseEntity<List<DishResponseDto>> getAll() {
         return ResponseEntity.ok(dishService.getAll().stream().map(dishMapper::toDto).collect(Collectors.toList()));
     }
 
-    @PostMapping("/recipes")
-    ResponseEntity<DishResponseDto> create(@RequestBody @Valid DishRequestDto dish) {
-        Dish newDish = dishMapper.toModel(dish);
-        Recipe recipe = recipeService.create(recipeMapper.toModel(dish.getRecipe()));
-
-        return ResponseEntity.ok(recipeMapper.toDto(recipeService.create(recipe)));
+    @PostMapping("/dishes")
+    ResponseEntity<DishResponseDto> create(@RequestBody @Valid DishRequestDto dishRequestDto) {
+        return ResponseEntity.ok(dishMapper.toDto(dishService.create(dishRequestDto)));
     }
 
-    @PutMapping("/recipes/{id}")
+    @PutMapping("/dishes/{id}")
     ResponseEntity<RecipeResponseDto> update(@PathVariable UUID id, @Valid @RequestBody RecipeRequestDto recipeDto) {
         Recipe recipe = recipeMapper.toModel(recipeDto);
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.update(id, recipe)));
     }
 
-    @DeleteMapping("/recipes/{id}")
+    @DeleteMapping("/dishes/{id}")
     ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         recipeService.delete(id);
         return ResponseEntity.ok().build();

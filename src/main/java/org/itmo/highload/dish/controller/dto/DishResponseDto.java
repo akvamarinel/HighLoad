@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.itmo.highload.category.controller.dto.CategoryDto;
 import org.itmo.highload.recipe.controller.dto.RecipeResponseDto;
-import org.itmo.highload.restaurant.controller.dto.RestaurantResponseDto;
-import org.itmo.highload.restaurant.model.Restaurant;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,20 +20,20 @@ import java.util.UUID;
 public class DishResponseDto {
 
     @NotNull
-    UUID id;
+    private UUID id;
 
     @NotNull
     @NotBlank
     @NotEmpty
-    String name;
+    private String name;
 
     @NotNull
-    RecipeResponseDto recipe;
+    private UUID recipeId;
 
     @NotNull
-    UUID restaurantId;
+    private UUID restaurantId;
 
     @NotNull
     @NotEmpty
-    List<UUID> categories = new ArrayList<>();
+    private List<UUID> categories = new ArrayList<>();
 }

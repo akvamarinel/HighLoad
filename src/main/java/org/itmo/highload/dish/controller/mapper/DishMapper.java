@@ -26,7 +26,7 @@ public class DishMapper {
         DishResponseDto dishDto = new DishResponseDto();
         dishDto.setId(dish.getId());
         dishDto.setName(dish.getName());
-        dishDto.setRecipe(recipeMapper.toDto(dish.getRecipe()));
+        dishDto.setRecipeId(dish.getRecipe().getId());
         dishDto.setRestaurantId(dish.getRestaurant().getId());
         dishDto.setCategories(dish.getCategories().stream()
                 .map(Category::getId).collect(Collectors.toList()));
@@ -36,6 +36,7 @@ public class DishMapper {
     public Dish toModel(DishRequestDto dishRequestDto) {
         Dish dish = new Dish();
         dish.setId(UUID.randomUUID());
+        dish.setName(dishRequestDto.getName());
         dish.setRestaurant(restaurantService.getOne(dishRequestDto.getRestaurantId()));
         dish.setCategories(dishRequestDto.getCategories().stream().map(categoryService::getOne).collect(Collectors.toList()));
         return dish;

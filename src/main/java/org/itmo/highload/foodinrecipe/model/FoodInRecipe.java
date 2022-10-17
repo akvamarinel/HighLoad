@@ -1,9 +1,6 @@
 package org.itmo.highload.foodinrecipe.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.itmo.highload.foodstuff.model.Foodstuff;
 import org.itmo.highload.recipe.model.Recipe;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "food_in_recipe")
 public class FoodInRecipe {

@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecipeMapper {
 
-    private final DishService dishService;
     private final FoodInRecipeMapper foodInRecipeMapper;
 
     public RecipeResponseDto toDto(Recipe recipe) {
@@ -25,7 +24,7 @@ public class RecipeMapper {
         dto.setId(recipe.getId());
         dto.setDescr(recipe.getDescr());
         dto.setDishId(recipe.getDish().getId());
-        dto.setFoodInRecipe(recipe.getFoodInRecipe().stream().map(foodInRecipeMapper::toDto).collect(Collectors.toList()));
+        dto.setFoodInRecipeDtoList(recipe.getFoodInRecipe().stream().map(foodInRecipeMapper::toDto).collect(Collectors.toList()));
         return dto;
     }
 
@@ -33,6 +32,7 @@ public class RecipeMapper {
         Recipe recipe = new Recipe();
         recipe.setId(UUID.randomUUID());
         recipe.setDescr(dto.getDescr());
+        //recipe.setDish(dto);
         return recipe;
     }
 }
