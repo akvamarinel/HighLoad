@@ -3,11 +3,9 @@ package org.itmo.highload.dish.controller.mapper;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.category.model.Category;
 import org.itmo.highload.category.service.CategoryService;
-import org.itmo.highload.dish.controller.dto.DishRequestDto;
-import org.itmo.highload.dish.controller.dto.DishResponseDto;
+import org.itmo.highload.dish.controller.dto.DishDto;
 import org.itmo.highload.dish.model.Dish;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
-import org.itmo.highload.recipe.service.RecipeService;
 import org.itmo.highload.restaurant.service.RestaurantService;
 import org.springframework.stereotype.Component;
 
@@ -22,23 +20,23 @@ public class DishMapper {
     private final RestaurantService restaurantService;
 
     private final RecipeMapper recipeMapper;
-    public DishResponseDto toDto(Dish dish) {
-        DishResponseDto dishDto = new DishResponseDto();
+    public DishDto toDto(Dish dish) {
+        DishDto dishDto = new DishDto();
         dishDto.setId(dish.getId());
         dishDto.setName(dish.getName());
-        dishDto.setRecipeId(dish.getRecipe().getId());
+        dishDto.setRecipe(recipeMapper.toDto(dish.getRecipe()));
         dishDto.setRestaurantId(dish.getRestaurant().getId());
         dishDto.setCategories(dish.getCategories().stream()
                 .map(Category::getId).collect(Collectors.toList()));
         return dishDto;
     }
 
-    public Dish toModel(DishRequestDto dishRequestDto) {
+    public Dish toModel(DishDto dishDto) {
         Dish dish = new Dish();
         dish.setId(UUID.randomUUID());
-        dish.setName(dishRequestDto.getName());
-        dish.setRestaurant(restaurantService.getOne(dishRequestDto.getRestaurantId()));
-        dish.setCategories(dishRequestDto.getCategories().stream().map(categoryService::getOne).collect(Collectors.toList()));
+        dish.setName(dishDto.getName());
+        dish.setRestaurant(restaurantService.getOne(dishDto.getRestaurantId()));
+        dish.setCategories(dishDto.getCategories().stream().map(categoryService::getOne).collect(Collectors.toList()));
         return dish;
     }
 }
