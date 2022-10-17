@@ -4,6 +4,7 @@ import lombok.*;
 import org.itmo.highload.foodinrecipe.model.FoodInRecipe;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,5 +27,5 @@ public class Foodstuff {
     private Integer calories;
 
     @OneToMany(mappedBy = "foodstuff")
-    private List<FoodInRecipe> foodInRecipe;
+    private List<FoodInRecipe> foodInRecipe = new ArrayList<>();
 }

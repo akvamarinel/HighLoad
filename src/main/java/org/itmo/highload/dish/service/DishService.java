@@ -58,6 +58,11 @@ public class DishService {
                             .weight(e.getWeight())
                             .build();
                 }).map(foodInRecipeRepo::save).collect(Collectors.toList());
+        foodInRecipeList.forEach(fr -> {
+            Foodstuff foodstuff = fr.getFoodstuff();
+            foodstuff.getFoodInRecipe().add(fr);
+            foodstuffRepo.save(foodstuff);
+        });
         recipe.setFoodInRecipe(foodInRecipeList);
         recipe.setDish(dish);
         dish.setRecipe(recipe);
