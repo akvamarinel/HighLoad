@@ -6,6 +6,7 @@ import org.itmo.highload.dish.model.Dish;
 import org.itmo.highload.dish.repo.DishRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class DishService {
         return dishRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Dish.class, id));
     }
 
-    public Iterable<Dish> getAll() {
+    public List<Dish> getAll() {
         return dishRepo.findAll();
     }
 

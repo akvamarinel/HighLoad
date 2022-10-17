@@ -2,6 +2,7 @@ package org.itmo.highload.recipe.controller.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.foodinrecipe.controller.dto.FoodInRecipeDto;
+import org.itmo.highload.foodinrecipe.controller.mapper.FoodInRecipeMapper;
 import org.itmo.highload.recipe.controller.dto.RecipeRequestDto;
 import org.itmo.highload.recipe.controller.dto.RecipeResponseDto;
 import org.itmo.highload.recipe.model.Recipe;
@@ -17,12 +18,14 @@ import java.util.stream.Collectors;
 public class RecipeMapper {
 
     private final DishService dishService;
+    private final FoodInRecipeMapper foodInRecipeMapper;
 
     public RecipeResponseDto toDto(Recipe recipe) {
         RecipeResponseDto dto = new RecipeResponseDto();
         dto.setId(recipe.getId());
         dto.setDescr(recipe.getDescr());
-        dto.setFoodInRecipe(recipe.getFoodInRecipe().stream().map(e -> new FoodInRecipeDto(e.getFoodstuff().getId(), e.getWeight())).collect(Collectors.toList()));
+        dto.setDishId(recipe.getDish().getId());
+        dto.setFoodInRecipe(recipe.getFoodInRecipe().stream().map(foodInRecipeMapper::toDto).collect(Collectors.toList()));
         return dto;
     }
 

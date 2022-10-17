@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class FoodInRecipeDto {
     @NotNull
-    private UUID dishId;
+    private UUID foodstuffId;
 
     @NotNull
     private Integer weight;

@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.itmo.highload.recipe.controller.dto.RecipeRequestDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,11 +19,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DishRequestDto {
 
-    UUID id;
     @NotNull
     @NotBlank
     @NotEmpty
     String name;
-    UUID recipeId;
+
+    @NotNull
+    RecipeRequestDto recipe;
+
+    @NotNull
     UUID restaurantId;
+
+    @NotNull
+    @NotEmpty
+    List<UUID> categories = new ArrayList<>();
 }
