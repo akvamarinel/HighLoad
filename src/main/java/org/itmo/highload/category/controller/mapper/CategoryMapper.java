@@ -1,12 +1,10 @@
 package org.itmo.highload.category.controller.mapper;
 
-
 import org.itmo.highload.category.controller.dto.CategoryDto;
 import org.itmo.highload.category.model.Category;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-
 
 @Component
 public class CategoryMapper {

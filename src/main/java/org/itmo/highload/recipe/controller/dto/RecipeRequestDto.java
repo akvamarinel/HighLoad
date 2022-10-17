@@ -25,5 +25,5 @@ public class RecipeRequestDto {
 
     @NotEmpty
     @NotNull
-    private List<FoodInRecipeDto> foodInRecipeDtoList = new ArrayList<>();
+    private List<FoodInRecipeDto> foodInRecipe = new ArrayList<>();
 }

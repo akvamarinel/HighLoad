@@ -15,7 +15,6 @@ import org.itmo.highload.recipe.controller.dto.RecipeRequestDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.repo.RecipeRepo;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -47,7 +46,7 @@ public class DishService {
         Dish dish = dishMapper.toModel(dishRequestDto);
         RecipeRequestDto recipeDto = dishRequestDto.getRecipe();
         Recipe recipe = recipeMapper.toModel(recipeDto);
-        List<FoodInRecipe> foodInRecipeList = recipeDto.getFoodInRecipeDtoList().stream()
+        List<FoodInRecipe> foodInRecipeList = recipeDto.getFoodInRecipe().stream()
                 .map(e -> {
                     Foodstuff food = foodstuffRepo.findById(e.getFoodstuffId())
                             .orElseThrow(() -> new EntityNotFoundException(Foodstuff.class, e.getFoodstuffId()));
@@ -57,16 +56,17 @@ public class DishService {
                             .recipe(recipe)
                             .weight(e.getWeight())
                             .build();
-                }).map(foodInRecipeRepo::save).collect(Collectors.toList());
+                }).collect(Collectors.toList());
+        recipe.setFoodInRecipe(foodInRecipeList);
+        recipeRepo.save(recipe);
+        foodInRecipeList.forEach(foodInRecipeRepo::save);
         foodInRecipeList.forEach(fr -> {
             Foodstuff foodstuff = fr.getFoodstuff();
             foodstuff.getFoodInRecipe().add(fr);
             foodstuffRepo.save(foodstuff);
         });
-        recipe.setFoodInRecipe(foodInRecipeList);
-        recipe.setDish(dish);
+
         dish.setRecipe(recipe);
-        recipeRepo.save(recipe);
         return dishRepo.save(dish);
     }
 

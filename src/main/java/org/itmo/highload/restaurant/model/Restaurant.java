@@ -29,6 +29,6 @@ public class Restaurant {
     @Column(name = "rating")
     private Integer rating;
 
-    @OneToMany(mappedBy = "restaurant")
-    private List<Dish> dishes = new ArrayList<>();
+//    @OneToMany(mappedBy = "restaurant")
+//    private List<Dish> dishes = new ArrayList<>();
 }

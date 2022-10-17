@@ -26,6 +26,6 @@ public class Foodstuff {
     @Column(name = "calories", nullable = false)
     private Integer calories;
 
-    @OneToMany(mappedBy = "foodstuff")
-    private List<FoodInRecipe> foodInRecipe = new ArrayList<>();
+//    @OneToMany(mappedBy = "foodstuff")
+//    private List<FoodInRecipe> foodInRecipe = new ArrayList<>();
 }

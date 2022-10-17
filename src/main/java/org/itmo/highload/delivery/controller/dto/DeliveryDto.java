@@ -14,8 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeliveryDto {
-    UUID id;
+    private UUID id;
     @NotNull
-    UserDataDto userDataDto;
+    private UserDataDto userDataDto;
 
 }

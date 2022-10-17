@@ -28,8 +28,8 @@ public class Customer {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "customer")
-    private List<UserOrder> userOrders;
+//    @OneToMany(mappedBy = "customer")
+//    private List<UserOrder> userOrders;
 
     @OneToOne
     @JoinColumn(name = "user_data_id", referencedColumnName = "id")
