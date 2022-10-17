@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.itmo.highload.recipe.controller.dto.RecipeResponseDto;
+import org.itmo.highload.recipe.controller.dto.RecipeDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -17,9 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DishResponseDto {
-
-    @NotNull
+public class DishDto {
     private UUID id;
 
     @NotNull
@@ -28,7 +26,7 @@ public class DishResponseDto {
     private String name;
 
     @NotNull
-    private UUID recipeId;
+    private RecipeDto recipe;
 
     @NotNull
     private UUID restaurantId;
