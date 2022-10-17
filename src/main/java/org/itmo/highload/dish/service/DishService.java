@@ -15,7 +15,6 @@ import org.itmo.highload.recipe.controller.dto.RecipeRequestDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.repo.RecipeRepo;
-import org.itmo.highload.restaurant.model.Restaurant;
 import org.itmo.highload.restaurant.repo.RestaurantRepo;
 import org.springframework.stereotype.Service;
 
@@ -60,16 +59,17 @@ public class DishService {
                             .recipe(recipe)
                             .weight(e.getWeight())
                             .build();
-                }).map(foodInRecipeRepo::save).collect(Collectors.toList());
+                }).collect(Collectors.toList());
+        recipe.setFoodInRecipe(foodInRecipeList);
+        recipeRepo.save(recipe);
+        foodInRecipeList.forEach(foodInRecipeRepo::save);
         foodInRecipeList.forEach(fr -> {
             Foodstuff foodstuff = fr.getFoodstuff();
             foodstuff.getFoodInRecipe().add(fr);
             foodstuffRepo.save(foodstuff);
         });
-        recipe.setFoodInRecipe(foodInRecipeList);
-        recipe.setDish(dish);
+
         dish.setRecipe(recipe);
-        recipeRepo.save(recipe);
         return dishRepo.save(dish);
     }
 

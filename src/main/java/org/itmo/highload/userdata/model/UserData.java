@@ -39,10 +39,10 @@ public class UserData {
     @Column(name = "role", nullable = false)
     private UserRole role;
 
-    @OneToOne(mappedBy = "userData")
-    private Customer user;
+//    @OneToOne(mappedBy = "userData")
+//    private Customer user;
 
-    @OneToOne(mappedBy = "userData")
-    private Delivery delivery;
+//    @OneToOne(mappedBy = "userData")
+//    private Delivery delivery;
 
 }

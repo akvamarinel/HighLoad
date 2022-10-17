@@ -22,15 +22,15 @@ public class DishRequestDto {
     @NotNull
     @NotBlank
     @NotEmpty
-    String name;
+    private String name;
 
     @NotNull
-    RecipeRequestDto recipe;
+    private RecipeRequestDto recipe;
 
     @NotNull
-    UUID restaurantId;
+    private UUID restaurantId;
 
     @NotNull
     @NotEmpty
-    List<UUID> categories = new ArrayList<>();
+    private List<UUID> categories = new ArrayList<>();
 }

@@ -29,9 +29,9 @@ public class Recipe {
     @Column(name = "descr", nullable = false)
     private String descr;
 
-    @OneToOne(mappedBy = "recipe")
-    private Dish dish;
-
-    @OneToMany(mappedBy = "recipe")
-    private List<FoodInRecipe> foodInRecipe = new ArrayList<>();
+//    @OneToOne(mappedBy = "recipe")
+//    private Dish dish;
+//
+//    @OneToMany(mappedBy = "recipe")
+//    private List<FoodInRecipe> foodInRecipe = new ArrayList<>();
 }

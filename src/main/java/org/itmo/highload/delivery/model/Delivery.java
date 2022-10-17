@@ -29,7 +29,7 @@ public class Delivery {
     @JoinColumn(name = "user_data_id", referencedColumnName = "id")
     private UserData userData;
 
-    @OneToMany(mappedBy = "delivery")
-    private List<UserOrder> userOrders;
+//    @OneToMany(mappedBy = "delivery")
+//    private List<UserOrder> userOrders;
 }
 
