@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.BufferUnderflowException;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -22,8 +23,24 @@ public class FoodInRecipeService {
     }
 
     public FoodInRecipe getOne(FoodInRecipeKey key) {
+        //fixme:
         return foodInRecipeRepo.findById(key).orElseThrow(() -> new EntityNotFoundException(FoodInRecipe.class, key.getRecipeId()));
     }
+
+    public void deleteById(FoodInRecipeKey key) {
+        if (!foodInRecipeRepo.existsById(key)) {
+            // fixme:
+            throw new EntityNotFoundException(FoodInRecipe.class, key.getRecipeId());
+        }
+        foodInRecipeRepo.deleteById(key);
+    }
+
+    public List<FoodInRecipe> getByRecipeId(UUID id) {
+        return foodInRecipeRepo.getFoodInRecipesByRecipeId(id);
+    }
+
+
+
 
     public FoodInRecipe create(FoodInRecipe foodInRecipe) {
         if (foodInRecipeRepo.existsById(foodInRecipe.getId())) {
