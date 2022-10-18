@@ -40,7 +40,7 @@ public class RestaurantController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/restaurant")
+    @GetMapping("/restaurants")
     public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
         List<RestaurantDto> restaurantResponseDtoList = restaurantService.getAll(pageable).stream()
                 .map(restaurantMapper::toDto).collect(Collectors.toList());

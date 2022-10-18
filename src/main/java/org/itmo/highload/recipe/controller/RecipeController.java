@@ -1,6 +1,7 @@
 package org.itmo.highload.recipe.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.common.ResponsePage;
 import org.itmo.highload.foodinrecipe.controller.dto.FoodInRecipeDto;
 import org.itmo.highload.foodinrecipe.controller.mapper.FoodInRecipeMapper;
 import org.itmo.highload.foodinrecipe.model.FoodInRecipe;
@@ -12,6 +13,8 @@ import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.controller.dto.RecipeDto;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.service.RecipeService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,30 +33,33 @@ public class RecipeController {
     private final FoodInRecipeMapper foodInRecipeMapper;
     private final FoodstuffService foodstuffService;
 
-    @GetMapping("/recipes/{id}")
+    @GetMapping("/recipe/{id}")
     ResponseEntity<RecipeDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.getOne(id)));
     }
 
     @GetMapping("/recipes")
-    ResponseEntity<List<RecipeDto>> getAll() {
-        List<Recipe> recipeList = recipeService.getAll();
-        return ResponseEntity.ok(recipeList.stream().map(recipeMapper::toDto).collect(Collectors.toList()));
+    ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
+        List<FoodInRecipeDto> foodInRecipeDtoList = foodInRecipeService.getAll(pageable).stream()
+                .map(foodInRecipeMapper::toDto).collect(Collectors.toList());
+        boolean tmp = foodstuffService.getAll(pageable).hasNext();
+        ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
+        return bodyBuilder.body(new ResponsePage(foodInRecipeDtoList, tmp));
     }
 
-    @PutMapping("/recipes/{id}")
+    @PutMapping("/recipe/{id}")
     ResponseEntity<RecipeDto> update(@PathVariable UUID id, @Valid @RequestBody RecipeDto recipeDto) {
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.update(id, recipeDto)));
     }
 
-    @DeleteMapping("/recipes/{id}")
+    @DeleteMapping("/recipe/{id}")
     ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         recipeService.delete(id);
         return ResponseEntity.ok().build();
     }
 
 
-    @GetMapping("/recipes/{id}/food_in_recipe")
+    @GetMapping("/recipe/{id}/food_in_recipe")
     ResponseEntity<List<FoodInRecipeDto>> getFoodInRecipe(@PathVariable UUID id) {
         List<FoodInRecipe> foodInRecipe = foodInRecipeService.getByRecipeId(id);
         if (foodInRecipe.isEmpty()) {
@@ -63,7 +69,7 @@ public class RecipeController {
         return ResponseEntity.ok(dtos);
     }
 
-    @PutMapping("/recipes/{id}/food_in_recipe")
+    @PutMapping("/recipe/{id}/food_in_recipe")
     ResponseEntity<FoodInRecipeDto> addFoodInRecipe(@PathVariable UUID id, @Valid @RequestBody FoodInRecipeDto foodInRecipeDto) {
         Recipe recipe = recipeService.getOne(id);
         Foodstuff foodstuff = foodstuffService.getOne(foodInRecipeDto.getFoodstuffId());
@@ -76,7 +82,7 @@ public class RecipeController {
         return ResponseEntity.ok(foodInRecipeMapper.toDto(foodInRecipeService.create(foodInRecipe)));
     }
 
-    @DeleteMapping("/recipes/{recipeId}/food_in_recipe/{foodstuffId}")
+    @DeleteMapping("/recipe/{recipeId}/food_in_recipe/{foodstuffId}")
     ResponseEntity<Void> deleteFoodInRecipe(@PathVariable UUID recipeId, @PathVariable UUID foodstuffId) {
         FoodInRecipeKey key = new FoodInRecipeKey(foodstuffId, recipeId);
         foodInRecipeService.deleteById(key);

@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -17,13 +16,11 @@ public class CategoryService {
 
     private final CategoryRepo categoryRepo;
 
-    @Transactional
     public Category create(Category category) {
         category.setId(UUID.randomUUID());
         return categoryRepo.save(category);
     }
 
-    @Transactional
     public void delete(UUID id) {
         categoryRepo.deleteById(getOne(id).getId());
     }

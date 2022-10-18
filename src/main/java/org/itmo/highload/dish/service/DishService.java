@@ -11,6 +11,8 @@ import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.repo.RecipeRepo;
 import org.itmo.highload.restaurant.repo.RestaurantRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,18 +24,16 @@ import java.util.UUID;
 public class DishService {
     private final DishRepo dishRepo;
     private final RecipeMapper recipeMapper;
-
     private final DishMapper dishMapper;
     private final RecipeRepo recipeRepo;
-
     private final RestaurantRepo restaurantRepo;
 
     public Dish getOne(UUID id) {
         return dishRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Dish.class, id));
     }
 
-    public List<Dish> getAll() {
-        return dishRepo.findAll();
+    public Page<Dish> getAll(Pageable pageable) {
+        return dishRepo.findAll(pageable);
     }
 
     @Transactional

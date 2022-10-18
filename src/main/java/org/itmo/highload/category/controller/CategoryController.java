@@ -40,7 +40,7 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categories")
     public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
         List<CategoryDto> categoryDtoList = categoryService.getAll(pageable).stream()
                 .map(categoryMapper::toDto).collect(Collectors.toList());

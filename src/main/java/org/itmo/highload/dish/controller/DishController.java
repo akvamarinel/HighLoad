@@ -1,6 +1,7 @@
 package org.itmo.highload.dish.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.common.ResponsePage;
 import org.itmo.highload.dish.controller.dto.DishDto;
 import org.itmo.highload.dish.controller.mapper.DishMapper;
 import org.itmo.highload.dish.service.DishService;
@@ -8,6 +9,9 @@ import org.itmo.highload.recipe.controller.dto.RecipeDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.service.RecipeService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +37,12 @@ public class DishController {
     }
 
     @GetMapping("/dishes")
-    ResponseEntity<List<DishDto>> getAll() {
-        return ResponseEntity.ok(dishService.getAll().stream().map(dishMapper::toDto).collect(Collectors.toList()));
+    ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
+        List<DishDto> dishDtoList = dishService.getAll(pageable).stream()
+                .map(dishMapper::toDto).collect(Collectors.toList());
+        boolean tmp = dishService.getAll(pageable).hasNext();
+        ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
+        return bodyBuilder.body(new ResponsePage(dishDtoList, tmp));
     }
 
     @PostMapping("/dishes")
