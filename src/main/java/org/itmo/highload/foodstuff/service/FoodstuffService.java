@@ -2,6 +2,7 @@ package org.itmo.highload.foodstuff.service;
 
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.exception.EntityNotFoundException;
+import org.itmo.highload.foodstuff.controller.dto.FoodstuffDto;
 import org.itmo.highload.foodstuff.model.Foodstuff;
 import org.itmo.highload.foodstuff.repo.FoodstuffRepo;
 import org.springframework.data.domain.Page;
@@ -37,9 +38,10 @@ public class FoodstuffService {
         return foodstuffRepo.findAll(pageable);
     }
 
-    public Foodstuff update(UUID id, Foodstuff foodstuff) {
-        Foodstuff tmpFoodstuff = getOne(id);
-        // todo: do!
-        return null;
+    public Foodstuff update(UUID id, FoodstuffDto foodstuffDto) {
+        Foodstuff foodstuff = getOne(id);
+        foodstuff.setCalories(foodstuffDto.getCalories());
+        foodstuff.setName(foodstuffDto.getName());
+        return foodstuffRepo.save(foodstuff);
     }
 }

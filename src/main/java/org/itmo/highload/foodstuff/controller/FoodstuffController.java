@@ -1,6 +1,7 @@
 package org.itmo.highload.foodstuff.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.common.ResponsePage;
 import org.itmo.highload.foodstuff.controller.dto.FoodstuffDto;
 import org.itmo.highload.foodstuff.controller.mapper.FoodstuffMapper;
 import org.itmo.highload.foodstuff.model.Foodstuff;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,9 +42,11 @@ public class FoodstuffController {
 
     @GetMapping("/foodstuff")
     public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(
-                foodstuffService.getAll(pageable).map(foodstuffMapper::toDto));
+        List<FoodstuffDto> foodstuffDtoList = foodstuffService.getAll(pageable).stream()
+                .map(foodstuffMapper::toDto).collect(Collectors.toList());
+        boolean tmp = foodstuffService.getAll(pageable).hasNext();
+        ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
+        return bodyBuilder.body(new ResponsePage(foodstuffDtoList,tmp));
     }
 
     @PostMapping("/foodstuff")
@@ -57,9 +62,9 @@ public class FoodstuffController {
     }
 
     @PutMapping("/foodstuff/{id}")
-    public ResponseEntity<Foodstuff> update(@PathVariable UUID id, @RequestBody FoodstuffDto foodstuffDto) {
+    public ResponseEntity<FoodstuffDto> update(@PathVariable UUID id, @RequestBody FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                foodstuffService.update(id, foodstuffMapper.toModel(foodstuffDto)));
+                foodstuffMapper.toDto(foodstuffService.update(id, foodstuffDto)));
     }
 
 }

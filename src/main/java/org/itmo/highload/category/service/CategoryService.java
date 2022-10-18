@@ -1,6 +1,7 @@
 package org.itmo.highload.category.service;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.category.controller.dto.CategoryDto;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.category.model.Category;
 import org.itmo.highload.category.repo.CategoryRepo;
@@ -34,9 +35,10 @@ public class CategoryService {
         return categoryRepo.findAll(pageable);
     }
 
-    public Category update(UUID id, Category category) {
-        return null;
+    public Category update(UUID id, CategoryDto categoryDto) {
+        Category category = getOne(id);
+        category.setName(categoryDto.getName());
+        return categoryRepo.save(category);
     }
-
 
 }

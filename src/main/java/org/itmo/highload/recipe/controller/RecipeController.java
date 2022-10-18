@@ -60,13 +60,16 @@ public class RecipeController {
 
 
     @GetMapping("/recipe/{id}/food_in_recipe")
-    ResponseEntity<List<FoodInRecipeDto>> getFoodInRecipe(@PathVariable UUID id) {
-        List<FoodInRecipe> foodInRecipe = foodInRecipeService.getByRecipeId(id);
-        if (foodInRecipe.isEmpty()) {
+    ResponseEntity<?> getFoodInRecipe(@PathVariable UUID id, @PageableDefault Pageable pageable) {
+        List<FoodInRecipeDto> foodInRecipeDtoList = foodInRecipeService.getByRecipeId(id, pageable).stream()
+                .map(foodInRecipeMapper::toDto).collect(Collectors.toList());
+        if (foodInRecipeDtoList.isEmpty()) {
             throw new RuntimeException("Bad request");
         }
-        List<FoodInRecipeDto> dtos = foodInRecipe.stream().map(foodInRecipeMapper::toDto).collect(Collectors.toList());
-        return ResponseEntity.ok(dtos);
+        boolean tmp = foodInRecipeService.getByRecipeId(id, pageable).hasNext();
+        ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
+        return bodyBuilder.body(new ResponsePage(foodInRecipeDtoList, tmp));
+
     }
 
     @PutMapping("/recipe/{id}/food_in_recipe")

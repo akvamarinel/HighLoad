@@ -37,8 +37,8 @@ public class FoodInRecipeService {
         foodInRecipeRepo.deleteById(key);
     }
 
-    public List<FoodInRecipe> getByRecipeId(UUID id) {
-        return foodInRecipeRepo.getFoodInRecipesByRecipeId(id);
+    public Page<FoodInRecipe> getByRecipeId(UUID id, Pageable pageable) {
+        return foodInRecipeRepo.getFoodInRecipesByRecipeId(id, pageable);
     }
 
 

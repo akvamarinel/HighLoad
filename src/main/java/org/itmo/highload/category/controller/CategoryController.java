@@ -5,7 +5,6 @@ import org.itmo.highload.category.controller.dto.CategoryDto;
 import org.itmo.highload.category.controller.mapper.CategoryMapper;
 import org.itmo.highload.category.service.CategoryService;
 import org.itmo.highload.common.ResponsePage;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -47,5 +46,10 @@ public class CategoryController {
         boolean tmp = categoryService.getAll(pageable).hasNext();
         ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
         return bodyBuilder.body(new ResponsePage(categoryDtoList, tmp));
+    }
+
+    @PostMapping("/category/{id}")
+    public ResponseEntity<CategoryDto> update(@PathVariable UUID id, @RequestBody @Valid CategoryDto categoryDto) {
+        return ResponseEntity.ok(categoryMapper.toDto(categoryService.update(id, categoryDto)));
     }
 }
