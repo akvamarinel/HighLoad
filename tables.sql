@@ -4,6 +4,7 @@ create table user_data (
     surname varchar(255) not null,
     login varchar(255) not null unique,
     password varchar(255) not null,
+    role varchar(255) not null
     primary key(id)
 );
 
@@ -42,7 +43,7 @@ create table recipe (
 
 create table foodstuff (
     id uuid not null default gen_random_uuid(),
-    name varchar(255) not null,
+    name varchar(255) not null unique,
     calories int not null,
     primary key(id)
 );
