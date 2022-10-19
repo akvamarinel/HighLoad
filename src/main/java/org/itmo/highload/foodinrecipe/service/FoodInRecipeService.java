@@ -7,6 +7,8 @@ import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.foodinrecipe.model.FoodInRecipe;
 import org.itmo.highload.foodinrecipe.model.FoodInRecipeKey;
 import org.itmo.highload.foodinrecipe.repo.FoodInRecipeRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.nio.BufferUnderflowException;
@@ -19,8 +21,8 @@ public class FoodInRecipeService {
 
     private final FoodInRecipeRepo foodInRecipeRepo;
 
-    public List<FoodInRecipe> getAll() {
-        return foodInRecipeRepo.findAll();
+    public Page<FoodInRecipe> getAll(Pageable pageable) {
+        return foodInRecipeRepo.findAll(pageable);
     }
 
     public FoodInRecipe getOne(FoodInRecipeKey key) {
@@ -34,8 +36,8 @@ public class FoodInRecipeService {
         foodInRecipeRepo.deleteById(key);
     }
 
-    public List<FoodInRecipe> getByRecipeId(UUID id) {
-        return foodInRecipeRepo.getFoodInRecipesByRecipeId(id);
+    public Page<FoodInRecipe> getByRecipeId(UUID id, Pageable pageable) {
+        return foodInRecipeRepo.getFoodInRecipesByRecipeId(id, pageable);
     }
 
     public FoodInRecipe create(FoodInRecipe foodInRecipe) {

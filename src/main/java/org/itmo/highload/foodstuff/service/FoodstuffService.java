@@ -3,6 +3,7 @@ package org.itmo.highload.foodstuff.service;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.foodstuff.controller.dto.FoodstuffDto;
+
 import org.itmo.highload.foodstuff.controller.mapper.FoodstuffMapper;
 import org.itmo.highload.foodstuff.model.Foodstuff;
 import org.itmo.highload.foodstuff.repo.FoodstuffRepo;
@@ -40,11 +41,11 @@ public class FoodstuffService {
         foodstuffRepo.delete(foodstuff);
     }
 
-
     public Foodstuff update(UUID id, FoodstuffDto foodstuffDto) {
         Foodstuff oldFoodstuff = getOne(id);
         Foodstuff foodstuff = foodstuffMapper.toModel(foodstuffDto);
         BeanUtils.copyProperties(foodstuff, oldFoodstuff, "id");
         return foodstuffRepo.save(oldFoodstuff);
+
     }
 }

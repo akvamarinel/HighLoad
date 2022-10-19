@@ -50,4 +50,9 @@ public class RestaurantController {
         return bodyBuilder.body(new ResponsePage(restaurantResponseDtoList, tmp));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<RestaurantDto> update(@PathVariable UUID id, @RequestBody @Valid RestaurantDto restaurantDto) {
+        return  ResponseEntity.status(HttpStatus.OK)
+                .body(restaurantMapper.toDto(restaurantService.update(id, restaurantDto)));
+    }
 }
