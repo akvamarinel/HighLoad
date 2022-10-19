@@ -15,9 +15,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-@RestController
 @RequiredArgsConstructor
+@RestController()
+@RequestMapping("dishes")
 public class DishController {
 
     private final DishMapper dishMapper;
@@ -27,27 +27,27 @@ public class DishController {
 
 
 
-    @GetMapping("/dishes/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<DishDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(dishMapper.toDto(dishService.getOne(id)));
     }
 
-    @GetMapping("/dishes")
+    @GetMapping()
     ResponseEntity<List<DishDto>> getAll() {
         return ResponseEntity.ok(dishService.getAll().stream().map(dishMapper::toDto).collect(Collectors.toList()));
     }
 
-    @PostMapping("/dishes")
+    @PostMapping()
     ResponseEntity<DishDto> create(@RequestBody @Valid DishDto dishDto) {
         return ResponseEntity.ok(dishMapper.toDto(dishService.create(dishDto)));
     }
 
-    @PutMapping("/dishes/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<RecipeDto> update(@PathVariable UUID id, @Valid @RequestBody RecipeDto recipeDto) {
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.update(id, recipeDto)));
     }
 
-    @DeleteMapping("/dishes/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         recipeService.delete(id);
         return ResponseEntity.ok().build();

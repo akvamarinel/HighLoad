@@ -18,30 +18,31 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@RestController
+@RestController()
+@RequestMapping("categories")
 public class CategoryController {
     private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
 
-    @PostMapping("/category")
+    @PostMapping()
     public ResponseEntity<CategoryDto> create(@RequestBody @Valid CategoryDto categoryDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(categoryMapper.toDto(categoryService.create(categoryMapper.toModel(categoryDto))));
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(categoryMapper.toDto(categoryService.getOne(id)));
     }
 
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         categoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/category")
+    @GetMapping()
     public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
         List<CategoryDto> categoryDtoList = categoryService.getAll(pageable).stream().map(categoryMapper::toDto).collect(Collectors.toList());
         boolean tmp = categoryService.getAll(pageable).hasNext();

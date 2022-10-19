@@ -22,7 +22,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@RestController
+@RestController()
+@RequestMapping("recipes")
 public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeMapper recipeMapper;
@@ -30,30 +31,30 @@ public class RecipeController {
     private final FoodInRecipeMapper foodInRecipeMapper;
     private final FoodstuffService foodstuffService;
 
-    @GetMapping("/recipes/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<RecipeDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.getOne(id)));
     }
 
-    @GetMapping("/recipes")
+    @GetMapping()
     ResponseEntity<List<RecipeDto>> getAll() {
         List<Recipe> recipeList = recipeService.getAll();
         return ResponseEntity.ok(recipeList.stream().map(recipeMapper::toDto).collect(Collectors.toList()));
     }
 
-    @PutMapping("/recipes/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<RecipeDto> update(@PathVariable UUID id, @Valid @RequestBody RecipeDto recipeDto) {
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.update(id, recipeDto)));
     }
 
-    @DeleteMapping("/recipes/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         recipeService.delete(id);
         return ResponseEntity.ok().build();
     }
 
 
-    @GetMapping("/recipes/{id}/food_in_recipe")
+    @GetMapping("/{id}/food_in_recipe")
     ResponseEntity<List<FoodInRecipeDto>> getFoodInRecipe(@PathVariable UUID id) {
         List<FoodInRecipe> foodInRecipe = foodInRecipeService.getByRecipeId(id);
         if (foodInRecipe.isEmpty()) {
@@ -63,7 +64,7 @@ public class RecipeController {
         return ResponseEntity.ok(dtos);
     }
 
-    @PutMapping("/recipes/{id}/food_in_recipe")
+    @PutMapping("/{id}/food_in_recipe")
     ResponseEntity<FoodInRecipeDto> addFoodInRecipe(@PathVariable UUID id, @Valid @RequestBody FoodInRecipeDto foodInRecipeDto) {
         Recipe recipe = recipeService.getOne(id);
         Foodstuff foodstuff = foodstuffService.getOne(foodInRecipeDto.getFoodstuffId());
@@ -76,12 +77,10 @@ public class RecipeController {
         return ResponseEntity.ok(foodInRecipeMapper.toDto(foodInRecipeService.create(foodInRecipe)));
     }
 
-    @DeleteMapping("/recipes/{recipeId}/food_in_recipe/{foodstuffId}")
+    @DeleteMapping("/{recipeId}/food_in_recipe/{foodstuffId}")
     ResponseEntity<Void> deleteFoodInRecipe(@PathVariable UUID recipeId, @PathVariable UUID foodstuffId) {
         FoodInRecipeKey key = new FoodInRecipeKey(foodstuffId, recipeId);
         foodInRecipeService.deleteById(key);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }

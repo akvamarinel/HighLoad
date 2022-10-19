@@ -16,36 +16,37 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RestController
+@RestController()
+@RequestMapping("foodstuffs")
 public class FoodstuffController {
     private final FoodstuffService foodstuffService;
     private final FoodstuffMapper foodstuffMapper;
 
 
-    @GetMapping(value = "/foodstuff/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<FoodstuffDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(foodstuffMapper.toDto(foodstuffService.getOne(id)));
     }
 
-    @GetMapping("/foodstuff")
+    @GetMapping()
     public ResponseEntity<Page<FoodstuffDto>> getAll(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(
                 foodstuffService.getAll(pageable).map(foodstuffMapper::toDto));
     }
 
-    @PostMapping("/foodstuff")
+    @PostMapping()
     public ResponseEntity<FoodstuffDto> create(@RequestBody @Valid FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(foodstuffMapper.toDto(foodstuffService.create(foodstuffDto)));
     }
 
-    @DeleteMapping("/foodstuff/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         foodstuffService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/foodstuff/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Foodstuff> update(@PathVariable UUID id, @RequestBody FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 foodstuffService.update(id, foodstuffDto));

@@ -16,31 +16,32 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RestController
 @RequiredArgsConstructor
+@RestController()
+@RequestMapping("restaurants")
 public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantMapper restaurantMapper;
 
-    @GetMapping("/restaurant/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<RestaurantDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(restaurantMapper.toDto(restaurantService.getOne(id)));
     }
 
-    @PostMapping("/restaurant")
+    @PostMapping()
     public ResponseEntity<RestaurantDto> create(@RequestBody @Valid RestaurantDto restaurantDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(restaurantMapper.toDto(restaurantService.create(restaurantMapper.toModel(restaurantDto))));
     }
 
-    @DeleteMapping("/restaurant/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         restaurantService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/restaurant")
+    @GetMapping()
     public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
         List<RestaurantDto> restaurantResponseDtoList = restaurantService.getAll(pageable).stream()
                 .map(restaurantMapper::toDto).collect(Collectors.toList());
