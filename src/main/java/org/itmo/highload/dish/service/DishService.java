@@ -26,7 +26,6 @@ public class DishService {
     private final DishMapper dishMapper;
     private final RecipeRepo recipeRepo;
 
-    private final RestaurantRepo restaurantRepo;
 
     public Dish getOne(UUID id) {
         return dishRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Dish.class, id));

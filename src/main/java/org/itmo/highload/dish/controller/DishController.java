@@ -44,7 +44,6 @@ public class DishController {
 
     @PutMapping("/dishes/{id}")
     ResponseEntity<RecipeDto> update(@PathVariable UUID id, @Valid @RequestBody RecipeDto recipeDto) {
-        Recipe recipe = recipeMapper.toModel(recipeDto);
         return ResponseEntity.ok(recipeMapper.toDto(recipeService.update(id, recipeDto)));
     }
 

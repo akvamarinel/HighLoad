@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.itmo.highload.dish.model.Dish;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Setter
@@ -26,7 +27,5 @@ public class Category {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
-
-//    @ManyToMany(mappedBy = "categories")
-//    private List<Dish> dishes;
 }
+

@@ -2,8 +2,11 @@ package org.itmo.highload.foodstuff.service;
 
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.exception.EntityNotFoundException;
+import org.itmo.highload.foodstuff.controller.dto.FoodstuffDto;
+import org.itmo.highload.foodstuff.controller.mapper.FoodstuffMapper;
 import org.itmo.highload.foodstuff.model.Foodstuff;
 import org.itmo.highload.foodstuff.repo.FoodstuffRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,30 +19,32 @@ import java.util.UUID;
 public class FoodstuffService {
 
     private final FoodstuffRepo foodstuffRepo;
+    private final FoodstuffMapper foodstuffMapper;
 
-    @Transactional
-    public Foodstuff create(Foodstuff foodstuff) {
-        foodstuff.setId(UUID.randomUUID());
-        return foodstuffRepo.save(foodstuff);
-    }
 
-    @Transactional
-    public void delete(UUID id) {
-        foodstuffRepo.deleteById(getOne(id).getId());
+    public Page<Foodstuff> getAll(Pageable pageable) {
+        return foodstuffRepo.findAll(pageable);
     }
 
     public Foodstuff getOne(UUID id) {
         return foodstuffRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Foodstuff.class, id));
     }
-
-    public Page<Foodstuff> getAll(Pageable pageable) {
-        return foodstuffRepo.findAll(pageable);
+    public Foodstuff create(FoodstuffDto foodstuffDto) {
+        Foodstuff foodstuff = foodstuffMapper.toModel(foodstuffDto);
+        return foodstuffRepo.save(foodstuff);
     }
 
-    public Foodstuff update(UUID id, Foodstuff foodstuff) {
-        Foodstuff tmpFoodstuff = getOne(id);
-        // todo: do!
-        return null;
+    public void delete(UUID id) {
+        Foodstuff foodstuff = getOne(id);
+        foodstuffRepo.delete(foodstuff);
+    }
+
+
+    public Foodstuff update(UUID id, FoodstuffDto foodstuffDto) {
+        Foodstuff oldFoodstuff = getOne(id);
+        Foodstuff foodstuff = foodstuffMapper.toModel(foodstuffDto);
+        BeanUtils.copyProperties(foodstuff, oldFoodstuff, "id");
+        return foodstuffRepo.save(oldFoodstuff);
     }
 }

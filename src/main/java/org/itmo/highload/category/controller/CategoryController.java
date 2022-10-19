@@ -25,7 +25,8 @@ public class CategoryController {
 
     @PostMapping("/category")
     public ResponseEntity<CategoryDto> create(@RequestBody @Valid CategoryDto categoryDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
                 .body(categoryMapper.toDto(categoryService.create(categoryMapper.toModel(categoryDto))));
     }
 
@@ -42,8 +43,7 @@ public class CategoryController {
 
     @GetMapping("/category")
     public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
-        List<CategoryDto> categoryDtoList = categoryService.getAll(pageable).stream()
-                .map(categoryMapper::toDto).collect(Collectors.toList());
+        List<CategoryDto> categoryDtoList = categoryService.getAll(pageable).stream().map(categoryMapper::toDto).collect(Collectors.toList());
         boolean tmp = categoryService.getAll(pageable).hasNext();
         ResponseEntity.BodyBuilder bodyBuilder = tmp ? ResponseEntity.status(HttpStatus.PARTIAL_CONTENT) : ResponseEntity.status(HttpStatus.OK);
         return bodyBuilder.body(new ResponsePage(categoryDtoList, tmp));

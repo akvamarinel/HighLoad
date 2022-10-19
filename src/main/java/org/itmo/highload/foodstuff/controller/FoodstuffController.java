@@ -6,9 +6,7 @@ import org.itmo.highload.foodstuff.controller.mapper.FoodstuffMapper;
 import org.itmo.highload.foodstuff.model.Foodstuff;
 import org.itmo.highload.foodstuff.service.FoodstuffService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,30 +22,21 @@ public class FoodstuffController {
     private final FoodstuffMapper foodstuffMapper;
 
 
-    @GetMapping(value = "/foodstuff/{id}", produces = "application/json")
+    @GetMapping(value = "/foodstuff/{id}")
     public ResponseEntity<FoodstuffDto> getOne(@PathVariable UUID id) {
         return ResponseEntity.ok(foodstuffMapper.toDto(foodstuffService.getOne(id)));
     }
 
-    @GetMapping("/foodstuff/sort-calories")
-    public ResponseEntity<Page<FoodstuffDto>> getAllSorted() {
-        //fixme : page in url, sort in url
-        //fixme: hasmore
-        return ResponseEntity.ok(foodstuffService.getAll(PageRequest.of(0, 5, Sort.Direction.ASC, "calories"))
-                .map(foodstuffMapper::toDto));
-    }
-
     @GetMapping("/foodstuff")
-    public ResponseEntity<?> getAll(@PageableDefault Pageable pageable) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(
+    public ResponseEntity<Page<FoodstuffDto>> getAll(@PageableDefault Pageable pageable) {
+        return ResponseEntity.ok(
                 foodstuffService.getAll(pageable).map(foodstuffMapper::toDto));
     }
 
     @PostMapping("/foodstuff")
     public ResponseEntity<FoodstuffDto> create(@RequestBody @Valid FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(foodstuffMapper.toDto(foodstuffService.create(foodstuffMapper.toModel(foodstuffDto))));
+                .body(foodstuffMapper.toDto(foodstuffService.create(foodstuffDto)));
     }
 
     @DeleteMapping("/foodstuff/{id}")
@@ -59,7 +48,7 @@ public class FoodstuffController {
     @PutMapping("/foodstuff/{id}")
     public ResponseEntity<Foodstuff> update(@PathVariable UUID id, @RequestBody FoodstuffDto foodstuffDto) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                foodstuffService.update(id, foodstuffMapper.toModel(foodstuffDto)));
+                foodstuffService.update(id, foodstuffDto));
     }
 
 }
