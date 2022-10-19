@@ -35,6 +35,7 @@
 ////                .antMatchers(HttpMethod.GET, "/foodstuff/**").authenticated()
 ////                .antMatchers(HttpMethod.GET, "/user-data/**").hasAnyRole("ROLE_USER", "ROLE_ADMIN", "ROLE_DELIVERY")
 ////                .antMatchers(HttpMethod.GET, "" )
+////                .anyRequest().authenticated();
 ////                .and();
 ////
 ////

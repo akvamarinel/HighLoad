@@ -2,6 +2,7 @@ package org.itmo.highload.foodinrecipe.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.exception.EntityExistsException;
 import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.foodinrecipe.model.FoodInRecipe;
 import org.itmo.highload.foodinrecipe.model.FoodInRecipeKey;
@@ -25,13 +26,11 @@ public class FoodInRecipeService {
     }
 
     public FoodInRecipe getOne(FoodInRecipeKey key) {
-        //fixme:
         return foodInRecipeRepo.findById(key).orElseThrow(() -> new EntityNotFoundException(FoodInRecipe.class, key.getRecipeId()));
     }
 
     public void deleteById(FoodInRecipeKey key) {
         if (!foodInRecipeRepo.existsById(key)) {
-            // fixme:
             throw new EntityNotFoundException(FoodInRecipe.class, key.getRecipeId());
         }
         foodInRecipeRepo.deleteById(key);
@@ -41,13 +40,9 @@ public class FoodInRecipeService {
         return foodInRecipeRepo.getFoodInRecipesByRecipeId(id, pageable);
     }
 
-
-
-
     public FoodInRecipe create(FoodInRecipe foodInRecipe) {
         if (foodInRecipeRepo.existsById(foodInRecipe.getId())) {
-            // fixme
-            throw new RuntimeException("Already exists");
+            throw new EntityExistsException(FoodInRecipe.class, foodInRecipe.getId().getRecipeId(), foodInRecipe.getId().getFoodstuffId());
         }
         return foodInRecipeRepo.save(foodInRecipe);
     }

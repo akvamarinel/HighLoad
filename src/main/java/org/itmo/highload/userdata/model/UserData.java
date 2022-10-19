@@ -29,20 +29,13 @@ public class UserData {
     @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role;
-
-//    @OneToOne(mappedBy = "userData")
-//    private Customer user;
-
-//    @OneToOne(mappedBy = "userData")
-//    private Delivery delivery;
-
 }

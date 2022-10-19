@@ -29,14 +29,14 @@ public class RecipeService {
 
 
     public Recipe update(UUID id, RecipeDto recipeDto) {
-        Recipe oldRecipe = recipeRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Recipe.class, id));
+        Recipe oldRecipe = getOne(id);
         Recipe recipe = recipeMapper.toModel(recipeDto);
         oldRecipe.setDescr(recipe.getDescr());
         return recipeRepo.save(oldRecipe);
     }
 
     public void delete(UUID id) {
-        Recipe recipe = recipeRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Recipe.class, id));
+        Recipe recipe = getOne(id);
         recipeRepo.delete(recipe);
     }
 
