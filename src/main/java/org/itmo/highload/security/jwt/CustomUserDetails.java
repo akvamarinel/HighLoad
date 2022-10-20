@@ -13,9 +13,9 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class CustomUserDetails implements UserDetails {
-    private final String login;
-    private final String password;
-    private final Collection<? extends GrantedAuthority> grantedAuthorities;
+    private String login;
+    private String password;
+    private Collection<? extends GrantedAuthority> grantedAuthorities;
 
 
     @Override
