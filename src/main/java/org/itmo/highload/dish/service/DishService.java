@@ -3,9 +3,9 @@ package org.itmo.highload.dish.service;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.dish.controller.dto.DishDto;
 import org.itmo.highload.dish.controller.mapper.DishMapper;
-import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.dish.model.Dish;
 import org.itmo.highload.dish.repo.DishRepo;
+import org.itmo.highload.exception.EntityNotFoundException;
 import org.itmo.highload.recipe.controller.dto.RecipeDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
 import org.itmo.highload.recipe.model.Recipe;
@@ -25,7 +25,6 @@ public class DishService {
     private final RecipeMapper recipeMapper;
     private final DishMapper dishMapper;
     private final RecipeRepo recipeRepo;
-    private final RestaurantRepo restaurantRepo;
 
 
     public Dish getOne(UUID id) {

@@ -23,8 +23,8 @@ create table delivery (
 
 create table user_order(
     id uuid not null default gen_random_uuid(),
-    customer_id uuid not null references customer(id) on delete cascade ,
-    delivery_id uuid not null references delivery(id) on delete cascade ,
+    customer_id uuid references customer(id) on delete set null ,
+    delivery_id uuid references delivery(id) on delete set null ,
     order_time timestamp not null,
     primary key(id)
 );

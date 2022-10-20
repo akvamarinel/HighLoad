@@ -16,12 +16,20 @@ public class UserDataService {
     private final UserDataRepo userDataRepo;
 
     public void create(UserDataDto userDataDto) {
+
     }
 
-    public void delete(UserDataDto userDataDto) {
+    public void delete(UUID uuid) {
+
+    }
+
+
+    public void update(UserDataDto userDataDto) {
+
     }
 
     public UserData findById(UUID id){
         return null;
     }
+
 }

@@ -1,5 +1,6 @@
 package org.itmo.highload.userdata.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class UserData {
     @Column(name = "surname", nullable = false)
     private String surname;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
