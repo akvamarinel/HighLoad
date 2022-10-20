@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,8 +25,11 @@ public class DishService {
     private final RecipeMapper recipeMapper;
     private final DishMapper dishMapper;
     private final RecipeRepo recipeRepo;
+<<<<<<< HEAD
     private final RestaurantRepo restaurantRepo;
 
+=======
+>>>>>>> 12c270c6f34aa54a1d0cfb8d66e2830357cb33b9
 
     public Dish getOne(UUID id) {
         return dishRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Dish.class, id));
