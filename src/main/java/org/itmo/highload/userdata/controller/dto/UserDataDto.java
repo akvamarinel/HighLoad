@@ -17,24 +17,24 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserDataDto {
 
-    @NotNull
-    UUID id;
+    private UUID id;
 
     @NotNull
     @NotBlank
     @NotEmpty
-    String name;
+    private String name;
 
     @NotNull
     @NotBlank
     @NotEmpty
-    String surname;
+    private String surname;
 
     @NotNull
     @NotBlank
     @NotEmpty
-    String login;
+    private String login;
 
-    @NotNull
-    UserRole role;
+    private String password;
+
+    private UserRole role;
 }
