@@ -49,7 +49,7 @@ public class CategoryController {
         return bodyBuilder.body(new ResponsePage(categoryDtoList, tmp));
     }
 
-    @PostMapping("/category/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<CategoryDto> update(@PathVariable UUID id, @RequestBody @Valid CategoryDto categoryDto) {
         return ResponseEntity.ok(categoryMapper.toDto(categoryService.update(id, categoryDto)));
     }

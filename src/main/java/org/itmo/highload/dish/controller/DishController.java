@@ -7,7 +7,6 @@ import org.itmo.highload.dish.controller.mapper.DishMapper;
 import org.itmo.highload.dish.service.DishService;
 import org.itmo.highload.recipe.controller.dto.RecipeDto;
 import org.itmo.highload.recipe.controller.mapper.RecipeMapper;
-import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.recipe.service.RecipeService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @RestController()
 @RequestMapping("dishes")
@@ -28,7 +28,6 @@ public class DishController {
     private final DishService dishService;
     private final RecipeService recipeService;
     private final RecipeMapper recipeMapper;
-
 
 
     @GetMapping("/{id}")
@@ -47,7 +46,9 @@ public class DishController {
 
     @PostMapping()
     ResponseEntity<DishDto> create(@RequestBody @Valid DishDto dishDto) {
+        ResponseEntity.status(HttpStatus.OK);
         return ResponseEntity.ok(dishMapper.toDto(dishService.create(dishDto)));
+
     }
 
     @PutMapping("/{id}")
