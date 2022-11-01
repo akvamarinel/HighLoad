@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface UserDataRepo extends CrudRepository<UserData, UUID> {
 
+
 }
