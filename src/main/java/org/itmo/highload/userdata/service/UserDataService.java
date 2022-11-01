@@ -15,8 +15,10 @@ public class UserDataService {
 
     private final UserDataRepo userDataRepo;
 
-    public void create(UserDataDto userDataDto) {
 
+    public UserData register(UserData userData) {
+        userData.setId(UUID.randomUUID());
+        return userDataRepo.save(userData);
     }
 
     public void delete(UUID uuid) {
