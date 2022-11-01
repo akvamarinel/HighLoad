@@ -17,7 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserDataDto {
 
-    @NotNull
     UUID id;
 
     @NotNull
@@ -35,6 +34,7 @@ public class UserDataDto {
     @NotEmpty
     String login;
 
-    @NotNull
+    String password;
+
     UserRole role;
 }
