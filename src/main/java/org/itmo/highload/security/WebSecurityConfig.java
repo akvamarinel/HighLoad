@@ -1,5 +1,6 @@
 package org.itmo.highload.security;
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,11 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/categories").hasAnyRole("USER", "ADMIN", "DELIVERY")
+                .antMatchers("/categories/*").hasRole("ADMIN")
+
                 .antMatchers("/point", "/point/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/register", "/auth").permitAll()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
-                .and()
+                //.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+                //.and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
@@ -45,9 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new CustomAuthEntryPoint();
-    }
+//    @Bean
+//    public AuthenticationEntryPoint authenticationEntryPoint() {
+//        return new CustomAuthEntryPoint();
+//    }
 }
 
