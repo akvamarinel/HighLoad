@@ -4,6 +4,7 @@ import org.itmo.highload.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,10 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/categories").hasAnyRole("USER", "ADMIN", "DELIVERY")
+                .antMatchers(HttpMethod.GET, "/categories/*").hasAnyRole("USER", "ADMIN", "DELIVERY")
                 .antMatchers("/categories/*").hasRole("ADMIN")
-
-                .antMatchers("/point", "/point/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/dishes/").hasAnyRole("USER", "ADMIN", "DELIVERY")
+                .antMatchers("/dishes/*").hasRole("ADMIN")
+                .antMatchers("/foodstuffs/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/recipes/*").hasAnyRole("USER", "ADMIN", "DELIVERY")
+                .antMatchers("/recipes/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/restaurants/*").hasAnyRole("USER", "ADMIN", "DELIVERY")
+                .antMatchers("/restaurants/*").hasRole("ADMIN")
                 .antMatchers("/register", "/auth").permitAll()
                 .and()
                 //.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
