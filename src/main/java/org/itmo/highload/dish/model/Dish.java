@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.itmo.highload.category.model.Category;
 import org.itmo.highload.recipe.model.Recipe;
 import org.itmo.highload.restaurant.model.Restaurant;
@@ -35,7 +37,8 @@ public class Dish implements Serializable {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "category_of_dish",
             joinColumns = @JoinColumn(name = "dish_id"),
