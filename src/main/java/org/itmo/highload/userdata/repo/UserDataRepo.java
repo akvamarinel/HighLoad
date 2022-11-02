@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface UserDataRepo extends CrudRepository<UserData, UUID> {
-
+    UserData findByLogin(String login);
 
 }

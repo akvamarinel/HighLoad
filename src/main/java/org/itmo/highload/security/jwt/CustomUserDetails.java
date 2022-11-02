@@ -1,4 +1,6 @@
 package org.itmo.highload.security.jwt;
+
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.userdata.model.UserData;
@@ -11,11 +13,11 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-@NoArgsConstructor
+@Builder
 public class CustomUserDetails implements UserDetails {
-    private String login;
-    private String password;
-    private Collection<? extends GrantedAuthority> grantedAuthorities;
+    private final String login;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> grantedAuthorities;
 
 
     @Override
@@ -24,11 +26,11 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public static CustomUserDetails fromUserToCustomUserDetails(UserData user) {
-        CustomUserDetails c = new CustomUserDetails();
-        c.login = user.getLogin();
-        c.password = user.getPassword();
-        c.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
-        return c;
+        return CustomUserDetails.builder().
+                login(user.getLogin()).
+                password(user.getPassword()).
+                grantedAuthorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()))).
+                build();
     }
 
     @Override
