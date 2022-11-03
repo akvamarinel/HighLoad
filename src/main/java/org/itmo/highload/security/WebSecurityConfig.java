@@ -1,4 +1,5 @@
 package org.itmo.highload.security;
+
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +33,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/categories/*").hasAnyRole("USER", "ADMIN", "DELIVERY")
-                .antMatchers("/categories/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/dishes/").hasAnyRole("USER", "ADMIN", "DELIVERY")
-                .antMatchers("/dishes/*").hasRole("ADMIN")
-                .antMatchers("/foodstuffs/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/recipes/*").hasAnyRole("USER", "ADMIN", "DELIVERY")
-                .antMatchers("/recipes/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/restaurants/*").hasAnyRole("USER", "ADMIN", "DELIVERY")
-                .antMatchers("/restaurants/*").hasRole("ADMIN")
-                .antMatchers("/register", "/auth").permitAll()
+                .antMatchers("delivery/register", "delivery/auth").permitAll()
+                .antMatchers("customer/register", "customer/auth").permitAll()
+                .antMatchers("/delivery/*").hasRole("DELIVERY")
+                .antMatchers("/customer/*").hasRole("CUSTOMER")
+                .antMatchers(HttpMethod.GET,
+                        "/categories/*",
+                        "/dishes/*",
+                        "/recipes/*",
+                        "/restaurants/*",
+                        "/orders/*")
+                .hasAnyRole("USER", "ADMIN", "DELIVERY")
+                .antMatchers("/*").hasRole("ADMIN")
                 .and()
-                //.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
-                //.and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
@@ -53,11 +54,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-//    @Bean
-//    public AuthenticationEntryPoint authenticationEntryPoint() {
-//        return new CustomAuthEntryPoint();
-//    }
 }
 

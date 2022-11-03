@@ -1,8 +1,9 @@
-package org.itmo.highload.userdata.service;
+package org.itmo.highload.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.security.jwt.CustomUserDetails;
 import org.itmo.highload.userdata.model.UserData;
+import org.itmo.highload.userdata.service.UserDataService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

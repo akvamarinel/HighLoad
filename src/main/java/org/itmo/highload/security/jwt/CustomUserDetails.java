@@ -1,7 +1,6 @@
 package org.itmo.highload.security.jwt;
 
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.userdata.model.UserData;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,10 +1,7 @@
 package org.itmo.highload.userdata.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.itmo.highload.customer.model.Customer;
 import org.itmo.highload.delivery.model.Delivery;
 
@@ -15,7 +12,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 @Entity
 @Table(name = "user_data")
 public class UserData {

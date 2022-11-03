@@ -1,9 +1,6 @@
 package org.itmo.highload.customer.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.itmo.highload.userdata.model.UserData;
 import org.itmo.highload.userorder.model.UserOrder;
 
@@ -15,8 +12,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
+@Builder
 @Entity
 @Table(name = "customer")
 public class Customer {

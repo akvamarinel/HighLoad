@@ -1,9 +1,6 @@
 package org.itmo.highload.delivery.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.itmo.highload.userdata.model.UserData;
 import org.itmo.highload.userorder.model.UserOrder;
 
@@ -15,8 +12,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
+@Builder
 @Entity
 @Table(name = "delivery")
 public class Delivery {
@@ -28,8 +24,5 @@ public class Delivery {
     @OneToOne
     @JoinColumn(name = "user_data_id", referencedColumnName = "id")
     private UserData userData;
-
-//    @OneToMany(mappedBy = "delivery")
-//    private List<UserOrder> userOrders;
 }
 

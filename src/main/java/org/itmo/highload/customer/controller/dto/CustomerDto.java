@@ -2,6 +2,10 @@ package org.itmo.highload.customer.controller.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -11,6 +15,29 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CustomerDto {
     private UUID id;
-    private UUID userDataId;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    private String name;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    private String surname;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    private String login;
+
+    @NotBlank
+    @NotNull
+    @Min(value = 4)
+    private String password;
+
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    private String address;
 }

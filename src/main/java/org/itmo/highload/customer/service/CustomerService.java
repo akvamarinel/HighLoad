@@ -1,13 +1,30 @@
 package org.itmo.highload.customer.service;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.highload.customer.model.Customer;
 import org.itmo.highload.customer.repo.CustomerRepo;
+import org.itmo.highload.userdata.model.UserData;
+import org.itmo.highload.userdata.repo.UserDataRepo;
+import org.itmo.highload.userdata.service.UserDataService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class CustomerService {
-    CustomerRepo customerRepo;
 
-
+    private final CustomerRepo customerRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final UserDataService userDataService;
+    private final UserDataRepo userDataRepo;
+    public Customer create(Customer customer) {
+        UserData userData = customer.getUserData();
+        userData.setPassword(passwordEncoder.encode(userData.getPassword()));
+        if (!userDataService.existsByLogin(userData.getLogin())) {
+            userDataRepo.save(userData);
+            return customerRepo.save(customer);
+        } else {
+            return null;
+        }
+    }
 }
