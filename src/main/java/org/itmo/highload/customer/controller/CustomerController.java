@@ -50,4 +50,5 @@ public class CustomerController {
         String token = jwtProvider.generateToken(user.getLogin());
         return ResponseEntity.status(HttpStatus.OK).body(new AuthResponse(token, "Authorization success"));
     }
+
 }

@@ -20,9 +20,9 @@ public class UserOrderService {
     private final UserOrderRepo userOrderRepo;
 
     @Transactional
-    public UUID create(UserOrder userOrder) {
+    public UserOrder create(UserOrder userOrder) {
         userOrder.setId(UUID.randomUUID());
-        return userOrderRepo.save(userOrder).getId();
+        return userOrderRepo.save(userOrder);
     }
 
     public UserOrder getOne(UUID id) {
@@ -30,8 +30,8 @@ public class UserOrderService {
                 .orElseThrow(() -> new EntityNotFoundException(UserOrder.class, id));
     }
 
-    public Page<UserOrder> getAll(Pageable pageable) {
-        return userOrderRepo.findAll(pageable);
+    public Page<UserOrder> getAll(UUID id, Pageable pageable) {
+        return userOrderRepo.getUserOrdersById(id, pageable);
     }
 
     public void delete(UserOrder userOrder) {

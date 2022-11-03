@@ -17,6 +17,7 @@ public class UserOrderDto {
     UUID id;
     @NotNull
     Date orderTime;
+
     UUID customerId;
     UUID deliveryId;
 
