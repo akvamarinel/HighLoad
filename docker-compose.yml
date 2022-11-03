@@ -9,7 +9,7 @@ services:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
             - POSTGRES_URL=jdbc:postgresql://db:5432/postgres
-            - JWT_SECRET=chmonya
+            - JWT_SECRET=chmonyachmonya
         ports:
             - '8080:8080'
     db:

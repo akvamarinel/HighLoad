@@ -1,6 +1,7 @@
 package org.itmo.highload.customer.controller.dto;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -33,7 +34,7 @@ public class CustomerDto {
 
     @NotBlank
     @NotNull
-    @Min(value = 4)
+    @Length(min = 5)
     private String password;
 
     @NotNull

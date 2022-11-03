@@ -16,7 +16,7 @@ import java.util.Date;
 public class JwtProvider {
 
     @Value("${jwt.secret}")
-    private final String jwtSecret;
+    private String jwtSecret;
 
     public String generateToken(String username) {
         Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.itmo.highload.userdata.controller.dto.UserDataDto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

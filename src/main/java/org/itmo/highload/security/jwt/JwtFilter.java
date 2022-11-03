@@ -1,7 +1,9 @@
 package org.itmo.highload.security.jwt;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.itmo.highload.security.service.CustomUserDetailsService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

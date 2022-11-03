@@ -1,10 +1,12 @@
 package org.itmo.highload.security;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.itmo.highload.security.jwt.JwtFilter;
+import org.itmo.highload.userdata.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,17 +15,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@RequiredArgsConstructor
+
+@Setter
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtFilter jwtFilter;
-
+    @Lazy
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,18 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("delivery/register", "delivery/auth").permitAll()
-                .antMatchers("customer/register", "customer/auth").permitAll()
-                .antMatchers("/delivery/*").hasRole("DELIVERY")
-                .antMatchers("/customer/*").hasRole("CUSTOMER")
+                .antMatchers("/api/v1/delivery/register", "/api/v1/delivery/auth").permitAll()
+                .antMatchers("/api/v1/customer/register", "/api/v1/customer/auth").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/categories/*",
-                        "/dishes/*",
-                        "/recipes/*",
-                        "/restaurants/*",
-                        "/orders/*")
-                .hasAnyRole("USER", "ADMIN", "DELIVERY")
-                .antMatchers("/*").hasRole("ADMIN")
+                        "/api/v1/categories", "/api/v1/categories/**",
+                        "/api/v1/dishes", "/api/v1/dishes/**",
+                        "/api/v1/recipes", "/api/v1/recipes/**",
+                        "/api/v1/restaurants", "/api/v1/restaurants/**",
+                        "/api/v1/orders", "/api/v1/orders/**").hasAnyRole("DELIVERY", "ADMIN", "CUSTOMER")
+                .antMatchers("/api/v1/delivery", "/api/v1/delivery/**").hasRole("DELIVERY")
+                .antMatchers("/api/v1/customer", "/api/v1/customer/**").hasRole("CUSTOMER")
+                .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -54,5 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
 }
 

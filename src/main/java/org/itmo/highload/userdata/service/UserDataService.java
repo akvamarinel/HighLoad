@@ -1,14 +1,10 @@
 package org.itmo.highload.userdata.service;
 
 import lombok.RequiredArgsConstructor;
-import org.itmo.highload.userdata.controller.dto.UserDataDto;
 import org.itmo.highload.userdata.model.UserData;
-import org.itmo.highload.userdata.model.UserRole;
 import org.itmo.highload.userdata.repo.UserDataRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 
 @RequiredArgsConstructor
