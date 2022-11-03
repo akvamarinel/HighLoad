@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CustomerRepo extends CrudRepository<Customer, UUID> {
+    Customer getCustomerByUserDataId(UUID id);
 }

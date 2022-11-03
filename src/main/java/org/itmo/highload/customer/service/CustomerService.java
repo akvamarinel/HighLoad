@@ -35,4 +35,8 @@ public class CustomerService {
     public Customer getById(UUID id) {
         return customerRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Customer.class, id));
     }
+
+    public Customer getByUserDataId(UUID id) {
+        return customerRepo.getCustomerByUserDataId(id);
+    }
 }
